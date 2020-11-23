@@ -1,9 +1,34 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 import java.math.*;
 
-class GeneracionNumeros{
+interface Validacion{
+	Scanner input = new Scanner(System.in);
 	
+	public static int validacionNatural() {
+		int ret = 0;
+		boolean err = false;
+		do {
+			try {
+				ret = input.nextInt();
+			} catch (java.util.InputMismatchException e) {
+				System.out.println("entrada no valida, intente de nuevo:");
+				input.nextLine();
+				err=true;
+			}
+			if (ret>0) {
+				err=false;
+			}else {
+				System.out.println("solo números naturales");
+				err=true;
+			}
+		}while(err);
+		return ret;
+	}
+}
+
+class GeneracionNumeros{
 	public static int[] generarNumerosAleatorios(int cnt){
 		int[] ret = new int[cnt];
 		
@@ -14,7 +39,6 @@ class GeneracionNumeros{
 	    return ret;
 	    
 	}
-
 }//class GeneracionNumeros
 
 class Menu{
@@ -28,10 +52,9 @@ class Menu{
 			System.out.println((i+1)+")"+prefijo+" "+opciones[i]);
 		}
 	}
-}
+}//class Menu
 
 class MetodosOrdenamiento{
-	
 	public static void impresionBenchmark(int [] numeros,int comparaciones,int intercambios,long ini,long fin) {
 		System.out.println("numeros ordenados: "+Arrays.toString(numeros));
 		System.out.println("cantidad de comparaciones: "+comparaciones);
@@ -39,6 +62,7 @@ class MetodosOrdenamiento{
 		System.out.println("tiempo de ejecucion en nanosegundos:"+(fin-ini));
 	}//benchmark
 
+	
 	static class Burbuja {
 		
 		public static void ordenacionBurbuja1(int[] nums) {
