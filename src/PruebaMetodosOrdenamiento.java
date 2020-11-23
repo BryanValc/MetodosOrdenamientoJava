@@ -38,6 +38,10 @@ class Menu{
 		}while(err);
 		return ret;
 	}
+	public static int validacionNatural(String prompt) {
+		System.out.println(prompt);
+		return validacionNatural();
+	}
 	public static void mostrarMenu(String[] opciones) {
 		for (int i = 0; i < opciones.length; i++) {
 			System.out.println((i+1)+")"+opciones[i]);
@@ -49,6 +53,14 @@ class Menu{
 			System.out.println((i+1)+")"+prefijo+" "+opciones[i]);
 		}
 		System.out.println((opciones.length+1)+")Salir");
+	}
+	public static void mostrarMenu(String[] opciones,String prompt) {
+		System.out.println(prompt);
+		mostrarMenu(opciones);
+	}
+	public static void mostrarMenu(String prefijo,String[] opciones,String prompt) {
+		System.out.println(prompt);
+		mostrarMenu(prefijo,opciones);
 	}
 }//class Menu
 
@@ -201,27 +213,22 @@ public class PruebaMetodosOrdenamiento{
 		
 		do {
 			String opciones[]= {"Mostrar por método de Burbuja","Mostrar por método de Insercion","cambiar cantidad de números"};
-			Menu.mostrarMenu(opciones);
+			Menu.mostrarMenu(opciones,"======Menu Principal======");
 			opc=Menu.validacionNatural();
 			
 			switch (opc) {
 			case 1:
 				do {
 					String opciones1[]= {"Burbuja1","Burbuja2","Burbuja3"};
-					Menu.mostrarMenu("Mostrar por método de",opciones1);
+					Menu.mostrarMenu("Mostrar por método de",opciones1,"======Menu Burbuja======");
 					opc1=Menu.validacionNatural();
 					
 					switch (opc1) {
-					case 1:
-						MetodosOrdenamiento.Burbuja.ordenacionBurbuja1(nums);break;
-					case 2:
-						MetodosOrdenamiento.Burbuja.ordenacionBurbuja2(nums);break;
-					case 3:
-						MetodosOrdenamiento.Burbuja.ordenacionBurbuja3(nums);break;
-					case 4:
-						salir1=true;break;
-					default:
-						System.out.println("Opcion no valida");break;
+					case 1:MetodosOrdenamiento.Burbuja.ordenacionBurbuja1(nums);break;
+					case 2:MetodosOrdenamiento.Burbuja.ordenacionBurbuja2(nums);break;
+					case 3:MetodosOrdenamiento.Burbuja.ordenacionBurbuja3(nums);break;
+					case 4:salir1=true;break;
+					default:System.out.println("Opcion no valida");break;
 					}//switch
 					
 				} while (!salir1);
@@ -229,8 +236,9 @@ public class PruebaMetodosOrdenamiento{
 			case 2:
 				MetodosOrdenamiento.Insercion.ordenacionInsercion(nums);break;
 			case 3:
-				int cnt = Menu.validacionNatural();
+				int cnt = Menu.validacionNatural("Cantidad de elementos:");
 				nums=GeneracionNumeros.generarNumerosAleatorios(cnt);
+				break;
 			case 4:
 				salir=true;break;
 			default:
@@ -238,6 +246,7 @@ public class PruebaMetodosOrdenamiento{
 			}//switch
 			
 		} while (!salir);
+		System.out.println("Fin de ejecucion");
 		
 		
 		
