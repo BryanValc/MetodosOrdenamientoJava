@@ -208,18 +208,19 @@ public class PruebaMetodosOrdenamiento{
 		
 		int opc=0,opc1=0;
 		boolean salir=false,salir1=false;
+		String opciones[]= {"Mostrar por método de Burbuja","Mostrar por método de Insercion","cambiar cantidad de números"};
+		String opciones1[]= {"Burbuja1","Burbuja2","Burbuja3"};
 
 		
 		
 		do {
-			String opciones[]= {"Mostrar por método de Burbuja","Mostrar por método de Insercion","cambiar cantidad de números"};
 			Menu.mostrarMenu(opciones,"======Menu Principal======");
 			opc=Menu.validacionNatural();
 			
 			switch (opc) {
 			case 1:
 				do {
-					String opciones1[]= {"Burbuja1","Burbuja2","Burbuja3"};
+					salir1=false;
 					Menu.mostrarMenu("Mostrar por método de",opciones1,"======Menu Burbuja======");
 					opc1=Menu.validacionNatural();
 					
