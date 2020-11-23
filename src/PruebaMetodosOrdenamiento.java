@@ -3,9 +3,21 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.math.*;
 
-interface Validacion{
-	Scanner input = new Scanner(System.in);
-	
+class GeneracionNumeros{
+	public static int[] generarNumerosAleatorios(int cnt){
+		int[] ret = new int[cnt];
+		
+		for (int i = 0; i < ret.length; i++) {
+			ret[i]=(int)(Math.random()*cnt);
+		}
+		
+	    return ret;
+	    
+	}
+}//class GeneracionNumeros
+
+class Menu{
+	static Scanner input = new Scanner(System.in);
 	public static int validacionNatural() {
 		int ret = 0;
 		boolean err = false;
@@ -26,22 +38,6 @@ interface Validacion{
 		}while(err);
 		return ret;
 	}
-}
-
-class GeneracionNumeros{
-	public static int[] generarNumerosAleatorios(int cnt){
-		int[] ret = new int[cnt];
-		
-		for (int i = 0; i < ret.length; i++) {
-			ret[i]=(int)(Math.random()*cnt);
-		}
-		
-	    return ret;
-	    
-	}
-}//class GeneracionNumeros
-
-class Menu{
 	public static void mostrarMenu(String[] opciones) {
 		for (int i = 0; i < opciones.length; i++) {
 			System.out.println((i+1)+")"+opciones[i]);
@@ -203,9 +199,6 @@ public class PruebaMetodosOrdenamiento{
 
 		String opciones[]= {"Burbuja","Insercion"};
 		Menu.mostrarMenu("Mostrar por método de",opciones);
-		
-		
-		
 		
 	}
 	
