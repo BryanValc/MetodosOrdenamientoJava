@@ -17,6 +17,19 @@ class GeneracionNumeros{
 
 }//class GeneracionNumeros
 
+class Menu{
+	public static void mostrarMenu(String[] opciones) {
+		for (int i = 0; i < opciones.length; i++) {
+			System.out.println((i+1)+")"+opciones[i]);
+		}
+	}
+	public static void mostrarMenu(String prefijo,String[] opciones) {
+		for (int i = 0; i < opciones.length; i++) {
+			System.out.println((i+1)+")"+prefijo+" "+opciones[i]);
+		}
+	}
+}
+
 class MetodosOrdenamiento{
 	
 	public static void impresionBenchmark(int [] numeros,int comparaciones,int intercambios,long ini,long fin) {
@@ -164,6 +177,12 @@ public class PruebaMetodosOrdenamiento{
 		MetodosOrdenamiento.Burbuja.ordenacionBurbuja3(nums);
 		MetodosOrdenamiento.Insercion.ordenacionInsercion(nums);
 
+		String opciones[]= {"Burbuja","Insercion"};
+		Menu.mostrarMenu("Mostrar por método de",opciones);
+		
+		
+		
+		
 	}
 	
 }
