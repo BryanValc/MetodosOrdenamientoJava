@@ -42,11 +42,13 @@ class Menu{
 		for (int i = 0; i < opciones.length; i++) {
 			System.out.println((i+1)+")"+opciones[i]);
 		}
+		System.out.println((opciones.length+1)+")Salir");
 	}
 	public static void mostrarMenu(String prefijo,String[] opciones) {
 		for (int i = 0; i < opciones.length; i++) {
 			System.out.println((i+1)+")"+prefijo+" "+opciones[i]);
 		}
+		System.out.println((opciones.length+1)+")Salir");
 	}
 }//class Menu
 
@@ -190,15 +192,54 @@ public class PruebaMetodosOrdenamiento{
 	
 	public static void main(String[] args) {
 	
-		int nums[]=GeneracionNumeros.generarNumerosAleatorios(2000);
+		int nums[]=GeneracionNumeros.generarNumerosAleatorios(10);
+		
+		int opc=0,opc1=0;
+		boolean salir=false,salir1=false;
 
-		MetodosOrdenamiento.Burbuja.ordenacionBurbuja1(nums);
-		MetodosOrdenamiento.Burbuja.ordenacionBurbuja2(nums);
-		MetodosOrdenamiento.Burbuja.ordenacionBurbuja3(nums);
-		MetodosOrdenamiento.Insercion.ordenacionInsercion(nums);
-
-		String opciones[]= {"Burbuja","Insercion"};
-		Menu.mostrarMenu("Mostrar por método de",opciones);
+		
+		
+		do {
+			String opciones[]= {"Mostrar por método de Burbuja","Mostrar por método de Insercion","cambiar cantidad de números"};
+			Menu.mostrarMenu(opciones);
+			opc=Menu.validacionNatural();
+			
+			switch (opc) {
+			case 1:
+				do {
+					String opciones1[]= {"Burbuja1","Burbuja2","Burbuja3"};
+					Menu.mostrarMenu("Mostrar por método de",opciones1);
+					opc1=Menu.validacionNatural();
+					
+					switch (opc1) {
+					case 1:
+						MetodosOrdenamiento.Burbuja.ordenacionBurbuja1(nums);break;
+					case 2:
+						MetodosOrdenamiento.Burbuja.ordenacionBurbuja2(nums);break;
+					case 3:
+						MetodosOrdenamiento.Burbuja.ordenacionBurbuja3(nums);break;
+					case 4:
+						salir1=true;break;
+					default:
+						System.out.println("Opcion no valida");break;
+					}//switch
+					
+				} while (!salir1);
+				break;
+			case 2:
+				MetodosOrdenamiento.Insercion.ordenacionInsercion(nums);break;
+			case 3:
+				int cnt = Menu.validacionNatural();
+				nums=GeneracionNumeros.generarNumerosAleatorios(cnt);
+			case 4:
+				salir=true;break;
+			default:
+				System.out.println("Opcion no valida");break;
+			}//switch
+			
+		} while (!salir);
+		
+		
 		
 	}
 	
