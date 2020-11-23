@@ -110,7 +110,6 @@ class MetodosOrdenamiento{
 			boolean ordenado=false;
 			long ini = System.nanoTime();
 			while (i<numeros.length) {
-				i+=1;
 				ordenado=true;
 				for (int j = 0; j < numeros.length-i-1; j++) {
 					comparaciones+=1;
@@ -122,6 +121,7 @@ class MetodosOrdenamiento{
 						numeros[j+1]=aux;
 					}
 				}
+				i+=1;
 			}
 			long fin = System.nanoTime();
 			
@@ -130,7 +130,7 @@ class MetodosOrdenamiento{
 		}
 		public static void ordenacionBurbuja3(int[] nums) {
 			int[] numeros = nums.clone();
-			System.out.println("======ordenacionBurbuja1======");
+			System.out.println("======ordenacionBurbuja3======");
 			System.out.println("numeros desordenados: "+Arrays.toString(numeros));
 			int comparaciones=0;
 			int intercambios=0;
@@ -138,7 +138,6 @@ class MetodosOrdenamiento{
 			int i =1;
 			long ini = System.nanoTime();
 			do{
-				i+=1;
 				boolean ordenado=true;
 				for (int j = 0; j < numeros.length-i; j++) {
 					comparaciones+=1;
@@ -150,6 +149,7 @@ class MetodosOrdenamiento{
 						numeros[j+1]=aux;
 					}
 				}
+				i+=1;
 			}while (i<numeros.length);
 			long fin = System.nanoTime();
 			
@@ -208,7 +208,7 @@ public class PruebaMetodosOrdenamiento{
 		
 		int opc=0,opc1=0;
 		boolean salir=false,salir1=false;
-		String opciones[]= {"Mostrar por método de Burbuja","Mostrar por método de Insercion","cambiar cantidad de números"};
+		String opciones[]= {"Mostrar por método de Burbuja","Mostrar por método de Insercion","Cambiar cantidad de números"};
 		String opciones1[]= {"Burbuja1","Burbuja2","Burbuja3"};
 
 		
