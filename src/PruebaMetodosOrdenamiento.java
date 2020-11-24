@@ -47,23 +47,25 @@ class Menu{
 		return validacionNatural();
 	}
 	public static void mostrarMenu(String[] opciones) {
+		System.out.println();
 		for (int i = 0; i < opciones.length; i++) {
 			System.out.println((i+1)+")"+opciones[i]);
 		}
-		System.out.println((opciones.length+1)+")Salir");
+		System.out.println((opciones.length+1)+")Salir\n");
 	}
 	public static void mostrarMenu(String prefijo,String[] opciones) {
+		System.out.println();
 		for (int i = 0; i < opciones.length; i++) {
 			System.out.println((i+1)+")"+prefijo+" "+opciones[i]);
 		}
-		System.out.println((opciones.length+1)+")Salir");
+		System.out.println((opciones.length+1)+")Salir\n");
 	}
 	public static void mostrarMenu(String[] opciones,String prompt) {
-		System.out.println(prompt);
+		System.out.println("\n"+prompt);
 		mostrarMenu(opciones);
 	}
 	public static void mostrarMenu(String prefijo,String[] opciones,String prompt) {
-		System.out.println(prompt);
+		System.out.println("\n"+prompt);
 		mostrarMenu(prefijo,opciones);
 	}
 }//class Menu
@@ -79,7 +81,7 @@ class MetodosOrdenamiento{
 	
 	static class Burbuja {
 		
-		public static void ordenacionBurbuja1(int[] nums) {
+		public static void ordenacionBurbuja1(int nums[]) {
 			int[] numeros = nums.clone();
 			System.out.println("======ordenacionBurbuja1======");
 			System.out.println("numeros desordenados: "+Arrays.toString(numeros));
@@ -103,7 +105,7 @@ class MetodosOrdenamiento{
 			impresionBenchmark(numeros, comparaciones, intercambios, ini, fin);
 			
 		}
-		public static void ordenacionBurbuja2(int[] nums) {
+		public static void ordenacionBurbuja2(int nums[]) {
 			int[] numeros = nums.clone();
 			System.out.println("======ordenacionBurbuja2======");
 			System.out.println("numeros desordenados: "+Arrays.toString(numeros));
@@ -132,7 +134,7 @@ class MetodosOrdenamiento{
 			impresionBenchmark(numeros, comparaciones, intercambios, ini, fin);
 			
 		}
-		public static void ordenacionBurbuja3(int[] nums) {
+		public static void ordenacionBurbuja3(int nums[]) {
 			int[] numeros = nums.clone();
 			System.out.println("======ordenacionBurbuja3======");
 			System.out.println("numeros desordenados: "+Arrays.toString(numeros));
@@ -170,7 +172,7 @@ class MetodosOrdenamiento{
 	
 	static class Insercion {
 		
-		public static void ordenacionInsercion(int[] nums) {
+		public static void ordenacionInsercion(int nums[]) {
 			int[] numeros = nums.clone();
 			System.out.println("======ordenarInsercion======");
 			System.out.println("numeros desordenados: "+Arrays.toString(numeros));
@@ -196,11 +198,86 @@ class MetodosOrdenamiento{
 			
 		}
 		
-		public static void mostrarVector(int [] numeros) {
+		public static void mostrarVector(int numeros[]) {
 			System.out.println(Arrays.toString(numeros));
 		}
 	}//class Insercion
 
+	
+	static class Intercalacion{
+		
+		public static void complementoIntercalacion(int numeros[]){
+			int aux;
+			for (int i = 1; i < numeros.length; i++) {
+				aux=numeros[i];
+				for (int j=i-1; j>=0 && numeros[j]>aux ; j--) {
+					numeros[j+1]=numeros[j];
+					numeros[j]=aux;
+				}
+			}
+		}
+		
+		public static void ordenacionIntercalacion(int nums[]) {
+			int numeros[]=nums.clone();
+			System.out.println("======ordenarIntercalacion======");
+			int[] arregloA,arregloB;
+			
+			int comparaciones=0;
+			int intercambios=0;
+			
+			if (numeros.length%2==0) {
+				arregloA=new int[numeros.length/2];
+				arregloB=new int[numeros.length/2];
+			}else {
+				arregloA=new int[numeros.length/2];
+				arregloB=new int[(numeros.length/2)+1];
+			}
+			for (int i = 0; i < numeros.length; i++) {
+				if (i<numeros.length/2) {
+					arregloA[i]=numeros[i];
+				}else {
+					arregloB[i-arregloA.length]=numeros[i];
+				}
+			}
+			complementoIntercalacion(arregloA);
+			complementoIntercalacion(arregloB);
+
+			System.out.println("primer vector: "+Arrays.toString(arregloA));
+			System.out.println("primer vector: "+Arrays.toString(arregloB));
+			
+			long ini = System.nanoTime();
+			int i,j,k;
+			int arregloC[]=new int[arregloA.length+arregloB.length];
+			for ( i = j = k = 0;i<arregloA.length && j<arregloB.length; k++) {
+				comparaciones++;
+				intercambios++;
+				if (arregloA[i]<arregloB[j]) {
+					arregloC[k]=arregloA[i];
+					i++;
+				}else {
+					arregloC[k]=arregloB[j];
+					j++;
+				}
+			}
+			for (;i < arregloA.length; i++,k++) {
+				arregloC[k]=arregloA[i];
+				intercambios++;
+			}
+			for (;i < arregloA.length; j++,k++) {
+				arregloC[k]=arregloB[i];
+				intercambios++;
+			}
+			long fin = System.nanoTime();
+			
+			impresionBenchmark(arregloC, comparaciones, intercambios, ini, fin);
+		}
+		
+		public static void mostrarVector(int numeros[]) {
+			System.out.println(Arrays.toString(numeros));
+		}
+		
+	}
+	
 	
 }//class MetodosOrdenamiento
 
@@ -208,54 +285,58 @@ public class PruebaMetodosOrdenamiento{
 	
 	public static void main(String[] args) {
 	
-		int nums[]=GeneracionNumeros.generarNumerosAleatorios(10);
+		int nums[]=GeneracionNumeros.generarNumerosAleatorios(11);
 		
 		boolean salir=false,salir1=false,salir3=false;
-		String opciones[]= {"Mostrar por método de Burbuja","Mostrar por método de Insercion","Cambiar cantidad de números"};
+		String opciones[]= {"Mostrar por metodo de Burbuja","Mostrar por metodo de Insercion","Mostrar por metodo de Intercalacion","Cambiar cantidad de numeros"};
 		String opciones1[]= {"Burbuja1","Burbuja2","Burbuja3"};
-		String opciones3[]= {"X cantidad de elementos con X limite","X cantidad de elementos con Y limite"};
+		String opciones4[]= {"X cantidad de elementos con X limite","X cantidad de elementos con Y limite"};
 
 		do {
+			
 			Menu.mostrarMenu(opciones,"======Menu Principal======");
-			
-			switch (Menu.validacionNatural()) {
-			case 1:
-				do {
-					salir1=false;
-					Menu.mostrarMenu("Mostrar por método de",opciones1,"======Menu Burbuja======");
-					
-					switch (Menu.validacionNatural()) {
-					case 1:MetodosOrdenamiento.Burbuja.ordenacionBurbuja1(nums);break;
-					case 2:MetodosOrdenamiento.Burbuja.ordenacionBurbuja2(nums);break;
-					case 3:MetodosOrdenamiento.Burbuja.ordenacionBurbuja3(nums);break;
-					case 4:salir1=true;break;
-					default:System.out.println("Opcion no valida");break;
-					}//switch
-					
-				} while (!salir1);
-				break;
-			case 2:
-				MetodosOrdenamiento.Insercion.ordenacionInsercion(nums);break;
-			case 3:
-				do {
-					salir3=false;
-					Menu.mostrarMenu(opciones3,"======Menu Numeros======");
-					
-					switch (Menu.validacionNatural()) {
-					case 1:nums=GeneracionNumeros.generarNumerosAleatorios(Menu.validacionNatural("X:"));break;
-					case 2:nums=GeneracionNumeros.generarNumerosAleatorios(Menu.validacionNatural("X:"),Menu.validacionNatural("Y:"));break;
-					case 3:salir3=true;break;
-					default:System.out.println("Opcion no valida");break;
-					}//switch
-					
-				} while (!salir3);
-				break;
-			case 4:
-				salir=true;break;
-			default:
-				System.out.println("Opcion no valida");break;
-			}//switch
-			
+			int opc=Menu.validacionNatural();
+			if (opc==(opciones.length+1)) {
+				salir=true;
+			}else {
+				switch (opc) {
+				case 1:
+					do {
+						salir1=false;
+						Menu.mostrarMenu("Mostrar por método de",opciones1,"======Menu Burbuja======");
+						
+						switch (Menu.validacionNatural()) {
+						case 1:MetodosOrdenamiento.Burbuja.ordenacionBurbuja1(nums);break;
+						case 2:MetodosOrdenamiento.Burbuja.ordenacionBurbuja2(nums);break;
+						case 3:MetodosOrdenamiento.Burbuja.ordenacionBurbuja3(nums);break;
+						case 4:salir1=true;break;
+						default:System.out.println("Opcion no valida");break;
+						}//switch
+						
+					} while (!salir1);
+					break;
+				case 2:
+					MetodosOrdenamiento.Insercion.ordenacionInsercion(nums);break;
+				case 3:
+					MetodosOrdenamiento.Intercalacion.ordenacionIntercalacion(nums);break;
+				case 4:
+					do {
+						salir3=false;
+						Menu.mostrarMenu(opciones4,"======Menu Numeros======");
+						
+						switch (Menu.validacionNatural()) {
+						case 1:nums=GeneracionNumeros.generarNumerosAleatorios(Menu.validacionNatural("X:"));break;
+						case 2:nums=GeneracionNumeros.generarNumerosAleatorios(Menu.validacionNatural("X:"),Menu.validacionNatural("Y:"));break;
+						case 3:salir3=true;break;
+						default:System.out.println("Opcion no valida");break;
+						}//switch
+						
+					} while (!salir3);
+					break;
+				default:
+					System.out.println("Opcion no valida");break;
+				}//switch
+			}//else
 		} while (!salir);
 		System.out.println("Fin de ejecucion");
 		
