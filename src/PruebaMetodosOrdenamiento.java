@@ -6,13 +6,17 @@ import java.math.*;
 class GeneracionNumeros{
 	public static int[] generarNumerosAleatorios(int cnt){
 		int[] ret = new int[cnt];
-		
 		for (int i = 0; i < ret.length; i++) {
 			ret[i]=(int)(Math.random()*cnt);
 		}
-		
 	    return ret;
-	    
+	}
+	public static int[] generarNumerosAleatorios(int cnt,int lim){
+		int[] ret = new int[cnt];
+		for (int i = 0; i < ret.length; i++) {
+			ret[i]=(int)(Math.random()*lim);
+		}
+	    return ret;
 	}
 }//class GeneracionNumeros
 
@@ -206,12 +210,11 @@ public class PruebaMetodosOrdenamiento{
 	
 		int nums[]=GeneracionNumeros.generarNumerosAleatorios(10);
 		
-		boolean salir=false,salir1=false;
+		boolean salir=false,salir1=false,salir3=false;
 		String opciones[]= {"Mostrar por método de Burbuja","Mostrar por método de Insercion","Cambiar cantidad de números"};
 		String opciones1[]= {"Burbuja1","Burbuja2","Burbuja3"};
+		String opciones3[]= {"X cantidad de elementos con X limite","X cantidad de elementos con Y limite"};
 
-		
-		
 		do {
 			Menu.mostrarMenu(opciones,"======Menu Principal======");
 			
@@ -234,7 +237,19 @@ public class PruebaMetodosOrdenamiento{
 			case 2:
 				MetodosOrdenamiento.Insercion.ordenacionInsercion(nums);break;
 			case 3:
-				nums=GeneracionNumeros.generarNumerosAleatorios(Menu.validacionNatural("Cantidad de elementos:"));break;
+				do {
+					salir3=false;
+					Menu.mostrarMenu(opciones3,"======Menu Numeros======");
+					
+					switch (Menu.validacionNatural()) {
+					case 1:nums=GeneracionNumeros.generarNumerosAleatorios(Menu.validacionNatural("X:"));break;
+					case 2:nums=GeneracionNumeros.generarNumerosAleatorios(Menu.validacionNatural("X:"),Menu.validacionNatural("Y:"));break;
+					case 3:salir3=true;break;
+					default:System.out.println("Opcion no valida");break;
+					}//switch
+					
+				} while (!salir3);
+				break;
 			case 4:
 				salir=true;break;
 			default:
@@ -243,8 +258,6 @@ public class PruebaMetodosOrdenamiento{
 			
 		} while (!salir);
 		System.out.println("Fin de ejecucion");
-		
-		
 		
 	}
 	
