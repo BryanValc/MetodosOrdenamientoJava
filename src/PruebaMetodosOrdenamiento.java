@@ -206,7 +206,6 @@ public class PruebaMetodosOrdenamiento{
 	
 		int nums[]=GeneracionNumeros.generarNumerosAleatorios(10);
 		
-		int opc=0,opc1=0;
 		boolean salir=false,salir1=false;
 		String opciones[]= {"Mostrar por método de Burbuja","Mostrar por método de Insercion","Cambiar cantidad de números"};
 		String opciones1[]= {"Burbuja1","Burbuja2","Burbuja3"};
@@ -215,16 +214,14 @@ public class PruebaMetodosOrdenamiento{
 		
 		do {
 			Menu.mostrarMenu(opciones,"======Menu Principal======");
-			opc=Menu.validacionNatural();
 			
-			switch (opc) {
+			switch (Menu.validacionNatural()) {
 			case 1:
 				do {
 					salir1=false;
 					Menu.mostrarMenu("Mostrar por método de",opciones1,"======Menu Burbuja======");
-					opc1=Menu.validacionNatural();
 					
-					switch (opc1) {
+					switch (Menu.validacionNatural()) {
 					case 1:MetodosOrdenamiento.Burbuja.ordenacionBurbuja1(nums);break;
 					case 2:MetodosOrdenamiento.Burbuja.ordenacionBurbuja2(nums);break;
 					case 3:MetodosOrdenamiento.Burbuja.ordenacionBurbuja3(nums);break;
@@ -237,9 +234,7 @@ public class PruebaMetodosOrdenamiento{
 			case 2:
 				MetodosOrdenamiento.Insercion.ordenacionInsercion(nums);break;
 			case 3:
-				int cnt = Menu.validacionNatural("Cantidad de elementos:");
-				nums=GeneracionNumeros.generarNumerosAleatorios(cnt);
-				break;
+				nums=GeneracionNumeros.generarNumerosAleatorios(Menu.validacionNatural("Cantidad de elementos:"));break;
 			case 4:
 				salir=true;break;
 			default:
