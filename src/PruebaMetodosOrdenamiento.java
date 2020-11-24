@@ -23,8 +23,8 @@ class GeneracionNumeros{
 	public static int[] generarNumerosAleatorios(int cnt,int limMin,int limMax){
 		int[] ret = new int[cnt];
 		while (limMin>=limMax) {
-			limMin=Menu.validacionNatural("El limite minimo debe ser inferior al limite maximo, reingrese los valores:\nMinimo");
-			limMax=Menu.validacionNatural("\nMaximo");
+			limMin=Menu.validacionEntero("El limite minimo debe ser inferior al limite maximo, reingrese los valores:\nMinimo");
+			limMax=Menu.validacionEntero("\nMaximo");
 		}
 		for (int i = 0; i < ret.length; i++) {
 			ret[i]=(int)((Math.random()*(limMax-limMin))+limMin);
@@ -473,8 +473,8 @@ public class PruebaMetodosOrdenamiento{
 						
 						switch (Menu.validacionNatural()) {
 						case 1:nums=GeneracionNumeros.generarNumerosAleatorios(Menu.validacionNatural("X:"));break;
-						case 2:nums=GeneracionNumeros.generarNumerosAleatorios(Menu.validacionNatural("X:"),Menu.validacionNatural("Y:"));break;
-						case 3:nums=GeneracionNumeros.generarNumerosAleatorios(Menu.validacionNatural("X:"),Menu.validacionNatural("Y:"),Menu.validacionNatural("Z:"));break;
+						case 2:nums=GeneracionNumeros.generarNumerosAleatorios(Menu.validacionNatural("X:"),Menu.validacionEntero("Y:"));break;
+						case 3:nums=GeneracionNumeros.generarNumerosAleatorios(Menu.validacionNatural("X:"),Menu.validacionEntero("Y:"),Menu.validacionEntero("Z:"));break;
 						case 4:salir3=true;break;
 						default:System.out.println("Opcion no valida");break;
 						}//switch
