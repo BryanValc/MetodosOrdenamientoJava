@@ -276,6 +276,65 @@ class MetodosOrdenamiento{
 			System.out.println(Arrays.toString(numeros));
 		}
 		
+		
+
+	
+	
+	}
+	
+	
+	static class MezclaDirecto{
+		
+		public static int [] ordenamientoMezclaDirecto(int arreglo[]) {
+			int i,j,k;
+			if(arreglo.length>1) {
+				int numElementosIzq=arreglo.length/2;
+				int numElmentosDer=arreglo.length-numElementosIzq;
+				
+				int arregloIzquierdo[]=new int[numElementosIzq];
+				int arregloDerecha[]=new int[numElmentosDer];
+				for(i=0;i<numElementosIzq;i++) {
+					arregloIzquierdo[i]=arreglo[i];
+				}
+				i=0;
+				for(i=numElementosIzq;i<numElementosIzq+numElmentosDer;i++) {
+					arregloDerecha[i-numElementosIzq]=arreglo[i];
+				}
+				
+				arregloIzquierdo=ordenamientoMezclaDirecto(arregloIzquierdo);
+				arregloDerecha=ordenamientoMezclaDirecto(arregloDerecha);
+				i=j=k=0;
+				while(arregloIzquierdo.length!=j && arregloDerecha.length!=k) {
+					if(arregloIzquierdo[j]<arregloDerecha[k]) {
+						arreglo[i]=arregloIzquierdo[j];
+						i++;
+						j++;
+					}else {
+						arreglo[i]=arregloDerecha[k];
+						i++;
+						k++;
+					}
+				}
+				while(arregloIzquierdo.length!=j) {
+					arreglo[i]=arregloIzquierdo[j];
+					i++;
+					j++;
+				}
+				while(arregloDerecha.length!=k) {
+					arreglo[i]=arregloDerecha[k];
+					i++;
+					k++;
+				}
+			}
+			
+			return arreglo;
+		}
+		
+		public static void llamadaOrdenamientoMezclaDirecto(int nums[]) {
+			int arreglo[]=nums.clone();
+			
+		}
+
 	}
 	
 	
@@ -287,8 +346,12 @@ public class PruebaMetodosOrdenamiento{
 	
 		int nums[]=GeneracionNumeros.generarNumerosAleatorios(11);
 		
-		boolean salir=false,salir1=false,salir3=false;
-		String opciones[]= {"Mostrar por metodo de Burbuja","Mostrar por metodo de Insercion","Mostrar por metodo de Intercalacion","Cambiar cantidad de numeros"};
+		MetodosOrdenamiento.MezclaDirecto.ordenamientoMezclaDirecto(nums);
+		
+		System.out.println(Arrays.toString(nums));
+		
+		/*boolean salir=false,salir1=false,salir3=false;
+		String opciones[]= {"Mostrar por metodo de Burbuja","Mostrar por metodo de Insercion","Mostrar por metodo de Intercalacion","Cambiar cantidad de numeros","xd","xd","xd","xd","xd","xd","xd","xd","xd","xd"};
 		String opciones1[]= {"Burbuja1","Burbuja2","Burbuja3"};
 		String opciones4[]= {"X cantidad de elementos con X limite","X cantidad de elementos con Y limite"};
 
@@ -338,7 +401,7 @@ public class PruebaMetodosOrdenamiento{
 				}//switch
 			}//else
 		} while (!salir);
-		System.out.println("Fin de ejecucion");
+		System.out.println("Fin de ejecucion");*/
 		
 	}
 	
