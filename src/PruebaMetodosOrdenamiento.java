@@ -132,7 +132,7 @@ class MetodosOrdenamiento{
 			long ini = System.nanoTime();
 			while (i<numeros.length) {
 				ordenado=true;
-				for (int j = 0; j < numeros.length-i-1; j++) {
+				for (int j = 0; j < numeros.length-i; j++) {
 					comparaciones+=1;
 					if(numeros[j]>numeros[j+1]) {
 						intercambios+=1;
@@ -394,6 +394,7 @@ class MetodosOrdenamiento{
 			impresionBenchmark(numeros, comparaciones, intercambios, ini, fin);
 			
 		}
+		
 		public static void mostrarVector(int numeros[]) {
 			System.out.println(Arrays.toString(numeros));
 		}
