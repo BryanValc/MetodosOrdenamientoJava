@@ -69,7 +69,7 @@ class Menu{
 		for (int i = 0; i < opciones2.length; i++,j++) {
 			System.out.println((j+1)+")"+prefijo+" "+opciones2[i]);
 		}
-		System.out.println((j)+")Salir\n");
+		System.out.println((j+1)+")Salir\n");
 	}
 	public static void mostrarMenu(String[] opciones,String prompt) {
 		System.out.println("\n"+prompt);
@@ -86,8 +86,16 @@ class Menu{
 }//class Menu
 
 class MetodosOrdenamiento{
-	public static void impresionBenchmark(int [] numeros,int comparaciones,int intercambios,long ini,long fin) {
-		System.out.println("numeros ordenados: "+Arrays.toString(numeros));
+	public static void impresionBenchmark(int [] numeros,int comparaciones,int intercambios,long ini,long fin,String clase) {
+		System.out.print("numeros ordenados: ");
+		switch (clase) {
+		case "Burbuja":Burbuja.mostrarVector(numeros);break;
+		case "Insercion":Insercion.mostrarVector(numeros);break;
+		case "Intercalacion":Intercalacion.mostrarVector(numeros);break;
+		case "MezclaDirecto":MezclaDirecto.mostrarVector(numeros);break;
+		case "Seleccion":Seleccion.mostrarVector(numeros);break;
+		default:break;
+		}
 		System.out.println("cantidad de comparaciones: "+comparaciones);
 		System.out.println("cantidad de intercambios: "+intercambios);
 		System.out.println("tiempo de ejecucion en nanosegundos:"+(fin-ini));
@@ -117,7 +125,7 @@ class MetodosOrdenamiento{
 			}
 			long fin = System.nanoTime();
 			
-			impresionBenchmark(numeros, comparaciones, intercambios, ini, fin);
+			impresionBenchmark(numeros, comparaciones, intercambios, ini, fin,"Burbuja");
 			
 		}
 		public static void ordenacionBurbuja2(int nums[]) {
@@ -146,7 +154,7 @@ class MetodosOrdenamiento{
 			}
 			long fin = System.nanoTime();
 			
-			impresionBenchmark(numeros, comparaciones, intercambios, ini, fin);
+			impresionBenchmark(numeros, comparaciones, intercambios, ini, fin,"Burbuja");
 			
 		}
 		public static void ordenacionBurbuja3(int nums[]) {
@@ -174,7 +182,7 @@ class MetodosOrdenamiento{
 			}while (i<numeros.length);
 			long fin = System.nanoTime();
 			
-			impresionBenchmark(numeros, comparaciones, intercambios, ini, fin);
+			impresionBenchmark(numeros, comparaciones, intercambios, ini, fin,"Burbuja");
 			
 		}
 		
@@ -209,7 +217,7 @@ class MetodosOrdenamiento{
 			}
 			long fin = System.nanoTime();
 			
-			impresionBenchmark(numeros, comparaciones, intercambios, ini, fin);
+			impresionBenchmark(numeros, comparaciones, intercambios, ini, fin,"Insercion");
 			
 		}
 		
@@ -283,7 +291,7 @@ class MetodosOrdenamiento{
 			
 			long fin = System.nanoTime();
 			
-			impresionBenchmark(arregloC, comparaciones, intercambios, ini, fin);
+			impresionBenchmark(arregloC, comparaciones, intercambios, ini, fin,"Intercalacion");
 		}
 		
 		public static void mostrarVector(int numeros[]) {
@@ -358,7 +366,7 @@ class MetodosOrdenamiento{
 			ordenamientoMezclaDirecto(numeros);
 			long fin = System.nanoTime();
 			
-			impresionBenchmark(numeros, comparaciones, intercambios, ini, fin);
+			impresionBenchmark(numeros, comparaciones, intercambios, ini, fin,"MezclaDirecto");
 			comparaciones=intercambios=0;
 		}
 
@@ -391,7 +399,7 @@ class MetodosOrdenamiento{
 				}
 			}
 			long fin = System.nanoTime();
-			impresionBenchmark(numeros, comparaciones, intercambios, ini, fin);
+			impresionBenchmark(numeros, comparaciones, intercambios, ini, fin,"Seleccion");
 			
 		}
 		
@@ -412,7 +420,7 @@ public class PruebaMetodosOrdenamiento{
 		
 		boolean salir=false,salir1=false,salir3=false;
 		String opcionespt1[]= {"Cambiar cantidad de numeros"};
-		String opcionespt2[]= {"Burbuja","Insercion","Seleccion","Intercalacion","directo"};
+		String opcionespt2[]= {"Burbuja","Insercion","Seleccion","Intercalacion","Mezcla directo"};
 		String opciones1[]= {"Burbuja1","Burbuja2","Burbuja3"};
 		String opciones4[]= {"X cantidad de elementos con X limite","X cantidad de elementos con Y limite"};
 
