@@ -60,6 +60,17 @@ class Menu{
 		}
 		System.out.println((opciones.length+1)+")Salir\n");
 	}
+	public static void mostrarMenu(String[] opciones1,String prefijo,String[] opciones2) {
+		System.out.println();
+		int j=0;
+		for (int i = 0; i < opciones1.length; i++,j++) {
+			System.out.println((i+1)+")"+opciones1[i]);
+		}
+		for (int i = 0; i < opciones2.length; i++,j++) {
+			System.out.println((j+1)+")"+prefijo+" "+opciones2[i]);
+		}
+		System.out.println((j)+")Salir\n");
+	}
 	public static void mostrarMenu(String[] opciones,String prompt) {
 		System.out.println("\n"+prompt);
 		mostrarMenu(opciones);
@@ -67,6 +78,10 @@ class Menu{
 	public static void mostrarMenu(String prefijo,String[] opciones,String prompt) {
 		System.out.println("\n"+prompt);
 		mostrarMenu(prefijo,opciones);
+	}
+	public static void mostrarMenu(String[] opciones1,String prefijo,String[] opciones2,String prompt) {
+		System.out.println("\n"+prompt);
+		mostrarMenu(opciones1,prefijo,opciones2);
 	}
 }//class Menu
 
@@ -246,27 +261,26 @@ class MetodosOrdenamiento{
 			System.out.println("primer vector: "+Arrays.toString(arregloB));
 			
 			long ini = System.nanoTime();
-			int i,j,k;
-			int arregloC[]=new int[arregloA.length+arregloB.length];
-			for ( i = j = k = 0;i<arregloA.length && j<arregloB.length; k++) {
-				comparaciones++;
-				intercambios++;
-				if (arregloA[i]<arregloB[j]) {
-					arregloC[k]=arregloA[i];
+			
+			int arregloC[] = new int[arregloA.length+arregloB.length];
+			
+			int i,k,j;
+			for(i=j=k=0; i<arregloA.length && j<arregloB.length; k++){
+				if(arregloA[i]<arregloB[j]) {
+					arregloC[k] = arregloA[i];
 					i++;
 				}else {
-					arregloC[k]=arregloB[j];
+					arregloC[k] = arregloB[j];
 					j++;
 				}
 			}
-			for (;i < arregloA.length; i++,k++) {
-				arregloC[k]=arregloA[i];
-				intercambios++;
+			for(;i<arregloA.length; i++,k++) {
+				arregloC[k] = arregloA[i];
 			}
-			for (;i < arregloA.length; j++,k++) {
-				arregloC[k]=arregloB[i];
-				intercambios++;
+			for(;j<arregloB.length; j++,k++) {
+				arregloC[k] = arregloB[j];
 			}
+			
 			long fin = System.nanoTime();
 			
 			impresionBenchmark(arregloC, comparaciones, intercambios, ini, fin);
@@ -396,15 +410,16 @@ public class PruebaMetodosOrdenamiento{
 		System.out.println("numeros: "+Arrays.toString(nums));
 		
 		boolean salir=false,salir1=false,salir3=false;
-		String opciones[]= {"Cambiar cantidad de numeros","Mostrar por metodo de Burbuja","Mostrar por metodo de Insercion","Mostrar por metodo de Seleccion","Mostrar por metodo de Intercalacion","Mostrar por metodo de Mezcla directo"};
+		String opcionespt1[]= {"Cambiar cantidad de numeros"};
+		String opcionespt2[]= {"Burbuja","Insercion","Seleccion","Intercalacion","directo"};
 		String opciones1[]= {"Burbuja1","Burbuja2","Burbuja3"};
 		String opciones4[]= {"X cantidad de elementos con X limite","X cantidad de elementos con Y limite"};
 
 		do {
 			
-			Menu.mostrarMenu(opciones,"======Menu Principal======");
+			Menu.mostrarMenu(opcionespt1,"Mostrar por metodo de",opcionespt2,"======Menu Principal======");
 			int opc=Menu.validacionNatural();
-			if (opc==(opciones.length+1)) {
+			if (opc==(opcionespt1.length+opcionespt2.length+1)) {
 				salir=true;
 			}else {
 				switch (opc) {
