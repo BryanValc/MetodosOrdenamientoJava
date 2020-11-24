@@ -284,6 +284,8 @@ class MetodosOrdenamiento{
 	
 	
 	static class MezclaDirecto{
+		static int comparaciones=0;
+		static int intercambios=0;
 		
 		public static int [] ordenamientoMezclaDirecto(int arreglo[]) {
 			int i,j,k;
@@ -295,16 +297,20 @@ class MetodosOrdenamiento{
 				int arregloDerecha[]=new int[numElmentosDer];
 				for(i=0;i<numElementosIzq;i++) {
 					arregloIzquierdo[i]=arreglo[i];
+					intercambios+=1;
 				}
 				i=0;
 				for(i=numElementosIzq;i<numElementosIzq+numElmentosDer;i++) {
 					arregloDerecha[i-numElementosIzq]=arreglo[i];
+					intercambios+=1;
 				}
 				
 				arregloIzquierdo=ordenamientoMezclaDirecto(arregloIzquierdo);
 				arregloDerecha=ordenamientoMezclaDirecto(arregloDerecha);
 				i=j=k=0;
 				while(arregloIzquierdo.length!=j && arregloDerecha.length!=k) {
+					comparaciones+=1;
+					intercambios+=1;
 					if(arregloIzquierdo[j]<arregloDerecha[k]) {
 						arreglo[i]=arregloIzquierdo[j];
 						i++;
@@ -316,11 +322,13 @@ class MetodosOrdenamiento{
 					}
 				}
 				while(arregloIzquierdo.length!=j) {
+					intercambios+=1;
 					arreglo[i]=arregloIzquierdo[j];
 					i++;
 					j++;
 				}
 				while(arregloDerecha.length!=k) {
+					intercambios+=1;
 					arreglo[i]=arregloDerecha[k];
 					i++;
 					k++;
@@ -331,8 +339,16 @@ class MetodosOrdenamiento{
 		}
 		
 		public static void llamadaOrdenamientoMezclaDirecto(int nums[]) {
-			int arreglo[]=nums.clone();
+			int numeros[]=nums.clone();
+			System.out.println("======ordenarMezclaDirecto======");
+			System.out.println("numeros desordenados: "+Arrays.toString(numeros));
 			
+			long ini = System.nanoTime();
+			ordenamientoMezclaDirecto(numeros);
+			long fin = System.nanoTime();
+			
+			impresionBenchmark(numeros, comparaciones, intercambios, ini, fin);
+			comparaciones=intercambios=0;
 		}
 
 	}
@@ -346,12 +362,8 @@ public class PruebaMetodosOrdenamiento{
 	
 		int nums[]=GeneracionNumeros.generarNumerosAleatorios(11);
 		
-		MetodosOrdenamiento.MezclaDirecto.ordenamientoMezclaDirecto(nums);
-		
-		System.out.println(Arrays.toString(nums));
-		
-		/*boolean salir=false,salir1=false,salir3=false;
-		String opciones[]= {"Mostrar por metodo de Burbuja","Mostrar por metodo de Insercion","Mostrar por metodo de Intercalacion","Cambiar cantidad de numeros","xd","xd","xd","xd","xd","xd","xd","xd","xd","xd"};
+		boolean salir=false,salir1=false,salir3=false;
+		String opciones[]= {"Cambiar cantidad de numeros","Mostrar por metodo de Burbuja","Mostrar por metodo de Insercion","Mostrar por metodo de Intercalacion","Mezcla directo"};
 		String opciones1[]= {"Burbuja1","Burbuja2","Burbuja3"};
 		String opciones4[]= {"X cantidad de elementos con X limite","X cantidad de elementos con Y limite"};
 
@@ -364,6 +376,20 @@ public class PruebaMetodosOrdenamiento{
 			}else {
 				switch (opc) {
 				case 1:
+					do {
+						salir3=false;
+						Menu.mostrarMenu(opciones4,"======Menu Numeros======");
+						
+						switch (Menu.validacionNatural()) {
+						case 1:nums=GeneracionNumeros.generarNumerosAleatorios(Menu.validacionNatural("X:"));break;
+						case 2:nums=GeneracionNumeros.generarNumerosAleatorios(Menu.validacionNatural("X:"),Menu.validacionNatural("Y:"));break;
+						case 3:salir3=true;break;
+						default:System.out.println("Opcion no valida");break;
+						}//switch
+						
+					} while (!salir3);
+					break;
+				case 2:
 					do {
 						salir1=false;
 						Menu.mostrarMenu("Mostrar por método de",opciones1,"======Menu Burbuja======");
@@ -378,30 +404,18 @@ public class PruebaMetodosOrdenamiento{
 						
 					} while (!salir1);
 					break;
-				case 2:
-					MetodosOrdenamiento.Insercion.ordenacionInsercion(nums);break;
 				case 3:
-					MetodosOrdenamiento.Intercalacion.ordenacionIntercalacion(nums);break;
+					MetodosOrdenamiento.Insercion.ordenacionInsercion(nums);break;
 				case 4:
-					do {
-						salir3=false;
-						Menu.mostrarMenu(opciones4,"======Menu Numeros======");
-						
-						switch (Menu.validacionNatural()) {
-						case 1:nums=GeneracionNumeros.generarNumerosAleatorios(Menu.validacionNatural("X:"));break;
-						case 2:nums=GeneracionNumeros.generarNumerosAleatorios(Menu.validacionNatural("X:"),Menu.validacionNatural("Y:"));break;
-						case 3:salir3=true;break;
-						default:System.out.println("Opcion no valida");break;
-						}//switch
-						
-					} while (!salir3);
-					break;
+					MetodosOrdenamiento.Intercalacion.ordenacionIntercalacion(nums);break;
+				case 5:
+					MetodosOrdenamiento.MezclaDirecto.llamadaOrdenamientoMezclaDirecto(nums);break;
 				default:
 					System.out.println("Opcion no valida");break;
 				}//switch
 			}//else
 		} while (!salir);
-		System.out.println("Fin de ejecucion");*/
+		System.out.println("Fin de ejecucion");
 		
 	}
 	
