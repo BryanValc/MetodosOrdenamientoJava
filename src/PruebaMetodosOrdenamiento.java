@@ -277,9 +277,6 @@ class MetodosOrdenamiento{
 		}
 		
 		
-
-	
-	
 	}
 	
 	
@@ -363,7 +360,7 @@ public class PruebaMetodosOrdenamiento{
 		int nums[]=GeneracionNumeros.generarNumerosAleatorios(11);
 		
 		boolean salir=false,salir1=false,salir3=false;
-		String opciones[]= {"Cambiar cantidad de numeros","Mostrar por metodo de Burbuja","Mostrar por metodo de Insercion","Mostrar por metodo de Intercalacion","Mezcla directo"};
+		String opciones[]= {"Cambiar cantidad de numeros","Mostrar por metodo de Burbuja","Mostrar por metodo de Insercion","Mostrar por metodo de Intercalacion","Mostrar por metodo de Mezcla directo"};
 		String opciones1[]= {"Burbuja1","Burbuja2","Burbuja3"};
 		String opciones4[]= {"X cantidad de elementos con X limite","X cantidad de elementos con Y limite"};
 
