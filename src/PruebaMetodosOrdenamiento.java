@@ -348,8 +348,43 @@ class MetodosOrdenamiento{
 			comparaciones=intercambios=0;
 		}
 
+		public static void mostrarVector(int numeros[]) {
+			System.out.println(Arrays.toString(numeros));
+		}
+		
 	}
 	
+	
+	static class Seleccion{
+		
+		public static void ordenacionSeleccion(int[] nums) {
+			int numeros[]=nums.clone();
+			System.out.println("======ordenarSeleccion======");
+			System.out.println("numeros desordenados: "+Arrays.toString(numeros));
+			int comparaciones=0;
+			int intercambios=0;
+			
+			long ini = System.nanoTime();
+			for(int i = 0; i < numeros.length - 1; i++) {
+				for(int j = i + 1; j < numeros.length; j++) {
+					comparaciones+=1;
+					if(numeros[i] > numeros[j]) {
+						intercambios+=1;
+						int orden = numeros[i];
+						numeros[i] = numeros[j];
+						numeros[j] = orden;
+					}
+				}
+			}
+			long fin = System.nanoTime();
+			impresionBenchmark(numeros, comparaciones, intercambios, ini, fin);
+			
+		}
+		public static void mostrarVector(int numeros[]) {
+			System.out.println(Arrays.toString(numeros));
+		}
+	
+	}//class Seleccion
 	
 }//class MetodosOrdenamiento
 
@@ -358,9 +393,10 @@ public class PruebaMetodosOrdenamiento{
 	public static void main(String[] args) {
 	
 		int nums[]=GeneracionNumeros.generarNumerosAleatorios(11);
+		System.out.println("numeros: "+Arrays.toString(nums));
 		
 		boolean salir=false,salir1=false,salir3=false;
-		String opciones[]= {"Cambiar cantidad de numeros","Mostrar por metodo de Burbuja","Mostrar por metodo de Insercion","Mostrar por metodo de Intercalacion","Mostrar por metodo de Mezcla directo"};
+		String opciones[]= {"Cambiar cantidad de numeros","Mostrar por metodo de Burbuja","Mostrar por metodo de Insercion","Mostrar por metodo de Seleccion","Mostrar por metodo de Intercalacion","Mostrar por metodo de Mezcla directo"};
 		String opciones1[]= {"Burbuja1","Burbuja2","Burbuja3"};
 		String opciones4[]= {"X cantidad de elementos con X limite","X cantidad de elementos con Y limite"};
 
@@ -404,8 +440,10 @@ public class PruebaMetodosOrdenamiento{
 				case 3:
 					MetodosOrdenamiento.Insercion.ordenacionInsercion(nums);break;
 				case 4:
-					MetodosOrdenamiento.Intercalacion.ordenacionIntercalacion(nums);break;
+					MetodosOrdenamiento.Seleccion.ordenacionSeleccion(nums);break;
 				case 5:
+					MetodosOrdenamiento.Intercalacion.ordenacionIntercalacion(nums);break;
+				case 6:
 					MetodosOrdenamiento.MezclaDirecto.llamadaOrdenamientoMezclaDirecto(nums);break;
 				default:
 					System.out.println("Opcion no valida");break;
