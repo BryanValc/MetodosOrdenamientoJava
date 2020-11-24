@@ -18,6 +18,17 @@ class GeneracionNumeros{
 		}
 	    return ret;
 	}
+	public static int[] generarNumerosAleatorios(int cnt,int limMin,int limMax){
+		int[] ret = new int[cnt];
+		while (limMin>=limMax) {
+			limMin=Menu.validacionNatural("El limite minimo debe ser inferior al limite maximo, reingrese los valores:\nMinimo");
+			limMax=Menu.validacionNatural("\nMaximo");
+		}
+		for (int i = 0; i < ret.length; i++) {
+			ret[i]=(int)((Math.random()*(limMax-limMin))+limMin);
+		}
+	    return ret;
+	}
 }//class GeneracionNumeros
 
 class Menu{
@@ -86,6 +97,8 @@ class Menu{
 }//class Menu
 
 class MetodosOrdenamiento{
+	
+	
 	public static void impresionBenchmark(int [] numeros,int comparaciones,int intercambios,long ini,long fin,String clase) {
 		System.out.print("numeros ordenados: ");
 		switch (clase) {
@@ -421,8 +434,8 @@ public class PruebaMetodosOrdenamiento{
 		boolean salir=false,salir1=false,salir3=false;
 		String opcionespt1[]= {"Cambiar cantidad de numeros"};
 		String opcionespt2[]= {"Burbuja","Insercion","Seleccion","Intercalacion","Mezcla directo"};
-		String opciones1[]= {"Burbuja1","Burbuja2","Burbuja3"};
-		String opciones4[]= {"X cantidad de elementos con X limite","X cantidad de elementos con Y limite"};
+		String opciones2[]= {"Burbuja1","Burbuja2","Burbuja3"};
+		String opciones1[]= {"X cantidad de elementos con X limite","X cantidad de elementos con Y limite","X cantidad de elementos con Y limite minimo y Z limite maximo"};
 
 		do {
 			
@@ -435,12 +448,13 @@ public class PruebaMetodosOrdenamiento{
 				case 1:
 					do {
 						salir3=false;
-						Menu.mostrarMenu(opciones4,"======Menu Numeros======");
+						Menu.mostrarMenu(opciones1,"======Menu Numeros======");
 						
 						switch (Menu.validacionNatural()) {
 						case 1:nums=GeneracionNumeros.generarNumerosAleatorios(Menu.validacionNatural("X:"));break;
 						case 2:nums=GeneracionNumeros.generarNumerosAleatorios(Menu.validacionNatural("X:"),Menu.validacionNatural("Y:"));break;
-						case 3:salir3=true;break;
+						case 3:nums=GeneracionNumeros.generarNumerosAleatorios(Menu.validacionNatural("X:"),Menu.validacionNatural("Y:"),Menu.validacionNatural("Z:"));break;
+						case 4:salir3=true;break;
 						default:System.out.println("Opcion no valida");break;
 						}//switch
 						
@@ -449,7 +463,7 @@ public class PruebaMetodosOrdenamiento{
 				case 2:
 					do {
 						salir1=false;
-						Menu.mostrarMenu("Mostrar por método de",opciones1,"======Menu Burbuja======");
+						Menu.mostrarMenu("Mostrar por método de",opciones2,"======Menu Burbuja======");
 						
 						switch (Menu.validacionNatural()) {
 						case 1:MetodosOrdenamiento.Burbuja.ordenacionBurbuja1(nums);break;
