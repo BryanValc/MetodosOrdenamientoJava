@@ -60,6 +60,24 @@ class Menu{
 		System.out.println(prompt);
 		return validacionNatural();
 	}
+	public static int validacionEntero() {
+		int ret = 0;
+		boolean err = false;
+		do {
+			try {
+				ret = input.nextInt();
+			} catch (java.util.InputMismatchException e) {
+				System.out.println("entrada no valida, intente de nuevo:");
+				input.nextLine();
+				err=true;
+			}
+		}while(err);
+		return ret;
+	}
+	public static int validacionEntero(String prompt) {
+		System.out.println(prompt);
+		return validacionEntero();
+	}
 	public static void mostrarMenu(String[] opciones) {
 		System.out.println();
 		for (int i = 0; i < opciones.length; i++) {
