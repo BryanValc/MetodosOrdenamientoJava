@@ -9,6 +9,7 @@ class GeneracionNumeros{
 		for (int i = 0; i < ret.length; i++) {
 			ret[i]=(int)(Math.random()*cnt);
 		}
+		System.out.println("numeros: "+Arrays.toString(ret));
 	    return ret;
 	}
 	public static int[] generarNumerosAleatorios(int cnt,int lim){
@@ -16,6 +17,7 @@ class GeneracionNumeros{
 		for (int i = 0; i < ret.length; i++) {
 			ret[i]=(int)(Math.random()*lim);
 		}
+		System.out.println("numeros: "+Arrays.toString(ret));
 	    return ret;
 	}
 	public static int[] generarNumerosAleatorios(int cnt,int limMin,int limMax){
@@ -27,6 +29,7 @@ class GeneracionNumeros{
 		for (int i = 0; i < ret.length; i++) {
 			ret[i]=(int)((Math.random()*(limMax-limMin))+limMin);
 		}
+		System.out.println("numeros: "+Arrays.toString(ret));
 	    return ret;
 	}
 }//class GeneracionNumeros
