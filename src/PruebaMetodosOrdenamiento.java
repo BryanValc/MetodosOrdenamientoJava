@@ -128,6 +128,7 @@ class MetodosOrdenamiento{
 		case "Intercalacion":Intercalacion.mostrarVector(numeros);break;
 		case "MezclaDirecto":MezclaDirecto.mostrarVector(numeros);break;
 		case "Seleccion":Seleccion.mostrarVector(numeros);break;
+		case "Quicksort":Quicksort.mostrarVector(numeros);break;
 		default:break;
 		}
 		System.out.println("cantidad de comparaciones: "+comparaciones);
@@ -443,6 +444,54 @@ class MetodosOrdenamiento{
 	
 	}//class Seleccion
 	
+	
+	static class Quicksort{
+		static int comparaciones=0;
+		static int intercambios=0;
+		
+        static public int[] quicksort(int[] numeros,int izq,int der) {
+            int pivote = numeros[izq];
+            int i = izq, j = der;
+            int aux;
+            while(i<j) {
+                while(numeros[i]<=pivote && i<j) i++;
+                while(numeros[j]>pivote)j--;
+                if(i<j) {
+                    aux = numeros[i];
+                    numeros[i]=numeros[j];
+                    numeros[j] = aux;
+                }
+            }
+            numeros[izq]=numeros[j];
+            numeros[j]=pivote;
+            if(izq<j-1)
+                quicksort(numeros,izq,j-1);
+            if(j+1<der)
+                quicksort(numeros, j+1, der);
+            return numeros;
+        }
+        
+        public static void llamadaQuicksort(int nums[]) {
+        	int numeros[]=nums.clone();
+        	System.out.println("======Quicksort======");
+        	System.out.println("numeros desordenados: "+Arrays.toString(numeros));
+        	
+        	long ini = System.nanoTime();
+        	quicksort(numeros,0,numeros.length-1);
+			long fin = System.nanoTime();
+        			
+			impresionBenchmark(numeros, comparaciones, intercambios, ini, fin,"Quicksort");
+			comparaciones=intercambios=0;
+        	
+        }
+        
+        public static void mostrarVector(int numeros[]) {
+			System.out.println(Arrays.toString(numeros));
+		}
+        
+        
+    }//class Quicksort
+	
 }//class MetodosOrdenamiento
 
 public class PruebaMetodosOrdenamiento{
@@ -454,9 +503,10 @@ public class PruebaMetodosOrdenamiento{
 		
 		boolean salir=false,salir1=false,salir3=false;
 		String opcionespt1[]= {"Cambiar cantidad de numeros"};
-		String opcionespt2[]= {"Burbuja","Insercion","Seleccion","Intercalacion","Mezcla directo"};
-		String opciones2[]= {"Burbuja1","Burbuja2","Burbuja3"};
+		String opcionespt2[]= {"Burbuja","Insercion","Seleccion","Quicksort","Intercalacion","Mezcla directo"};
 		String opciones1[]= {"X cantidad de elementos con X limite","X cantidad de elementos con Y limite","X cantidad de elementos con Y limite minimo y Z limite maximo"};
+		String opciones2[]= {"Burbuja1","Burbuja2","Burbuja3"};
+		
 
 		do {
 			
@@ -501,8 +551,10 @@ public class PruebaMetodosOrdenamiento{
 				case 4:
 					MetodosOrdenamiento.Seleccion.ordenacionSeleccion(nums);break;
 				case 5:
-					MetodosOrdenamiento.Intercalacion.ordenacionIntercalacion(nums);break;
+					MetodosOrdenamiento.Quicksort.llamadaQuicksort(nums);break;
 				case 6:
+					MetodosOrdenamiento.Intercalacion.ordenacionIntercalacion(nums);break;
+				case 7:
 					MetodosOrdenamiento.MezclaDirecto.llamadaOrdenamientoMezclaDirecto(nums);break;
 				default:
 					System.out.println("Opcion no valida");break;
