@@ -78,21 +78,21 @@ class Menu{
 		System.out.println(prompt);
 		return validacionEntero();
 	}
-	public static void mostrarMenu(String[] opciones) {
+	public static void mostrarMenu(String[] opciones) {//Imprime opciones
 		System.out.println();
 		for (int i = 0; i < opciones.length; i++) {
 			System.out.println((i+1)+")"+opciones[i]);
 		}
 		System.out.println((opciones.length+1)+")Salir\n");
 	}
-	public static void mostrarMenu(String prefijo,String[] opciones) {
+	public static void mostrarMenu(String prefijo,String[] opciones) {//Imprime opciones con prefijo
 		System.out.println();
 		for (int i = 0; i < opciones.length; i++) {
 			System.out.println((i+1)+")"+prefijo+" "+opciones[i]);
 		}
 		System.out.println((opciones.length+1)+")Salir\n");
 	}
-	public static void mostrarMenu(String[] opciones1,String prefijo,String[] opciones2) {
+	public static void mostrarMenu(String[] opciones1,String prefijo,String[] opciones2) {//imprime opciones sin prefijo y luego opciones con prefijo
 		System.out.println();
 		int j=0;
 		for (int i = 0; i < opciones1.length; i++,j++) {
@@ -103,15 +103,15 @@ class Menu{
 		}
 		System.out.println((j+1)+")Salir\n");
 	}
-	public static void mostrarMenu(String[] opciones,String prompt) {
+	public static void mostrarMenu(String[] opciones,String prompt) {//Imprime opciones con título
 		System.out.println("\n"+prompt);
 		mostrarMenu(opciones);
 	}
-	public static void mostrarMenu(String prefijo,String[] opciones,String prompt) {
+	public static void mostrarMenu(String prefijo,String[] opciones,String prompt) {////Imprime opciones con prefijo, además del título
 		System.out.println("\n"+prompt);
 		mostrarMenu(prefijo,opciones);
 	}
-	public static void mostrarMenu(String[] opciones1,String prefijo,String[] opciones2,String prompt) {
+	public static void mostrarMenu(String[] opciones1,String prefijo,String[] opciones2,String prompt) {//imprime opciones sin prefijo y luego opciones con prefijo, además del título
 		System.out.println("\n"+prompt);
 		mostrarMenu(opciones1,prefijo,opciones2);
 	}
@@ -454,14 +454,18 @@ class MetodosOrdenamiento{
             int i = izq, j = der;
             int aux;
             while(i<j) {
+            	comparaciones+=1;
                 while(numeros[i]<=pivote && i<j) i++;
+                comparaciones+=1;
                 while(numeros[j]>pivote)j--;
                 if(i<j) {
+                	intercambios+=1;
                     aux = numeros[i];
                     numeros[i]=numeros[j];
                     numeros[j] = aux;
                 }
             }
+            intercambios+=1;
             numeros[izq]=numeros[j];
             numeros[j]=pivote;
             if(izq<j-1)
@@ -491,6 +495,7 @@ class MetodosOrdenamiento{
         
         
     }//class Quicksort
+
 	
 }//class MetodosOrdenamiento
 
@@ -498,7 +503,7 @@ public class PruebaMetodosOrdenamiento{
 	
 	public static void main(String[] args) {
 	
-		int nums[]=GeneracionNumeros.generarNumerosAleatorios(11);
+		int nums[]=GeneracionNumeros.generarNumerosAleatorios(10);
 		System.out.println("numeros: "+Arrays.toString(nums));
 		
 		boolean salir=false,salir1=false,salir3=false;
@@ -511,7 +516,7 @@ public class PruebaMetodosOrdenamiento{
 		do {
 			
 			Menu.mostrarMenu(opcionespt1,"Mostrar por metodo de",opcionespt2,"======Menu Principal======");
-			int opc=Menu.validacionNatural();
+			byte opc= (byte) Menu.validacionNatural();
 			if (opc==(opcionespt1.length+opcionespt2.length+1)) {
 				salir=true;
 			}else {
@@ -546,18 +551,12 @@ public class PruebaMetodosOrdenamiento{
 						
 					} while (!salir1);
 					break;
-				case 3:
-					MetodosOrdenamiento.Insercion.ordenacionInsercion(nums);break;
-				case 4:
-					MetodosOrdenamiento.Seleccion.ordenacionSeleccion(nums);break;
-				case 5:
-					MetodosOrdenamiento.Quicksort.llamadaQuicksort(nums);break;
-				case 6:
-					MetodosOrdenamiento.Intercalacion.ordenacionIntercalacion(nums);break;
-				case 7:
-					MetodosOrdenamiento.MezclaDirecto.llamadaOrdenamientoMezclaDirecto(nums);break;
-				default:
-					System.out.println("Opcion no valida");break;
+				case 3:MetodosOrdenamiento.Insercion.ordenacionInsercion(nums);break;
+				case 4:MetodosOrdenamiento.Seleccion.ordenacionSeleccion(nums);break;
+				case 5:MetodosOrdenamiento.Quicksort.llamadaQuicksort(nums);break;
+				case 6:MetodosOrdenamiento.Intercalacion.ordenacionIntercalacion(nums);break;
+				case 7:MetodosOrdenamiento.MezclaDirecto.llamadaOrdenamientoMezclaDirecto(nums);break;
+				default:System.out.println("Opcion no valida");break;
 				}//switch
 			}//else
 		} while (!salir);
