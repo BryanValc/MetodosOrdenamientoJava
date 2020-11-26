@@ -136,14 +136,16 @@ class MetodosOrdenamiento{
 		System.out.println("cantidad de intercambios: "+intercambios);
 		System.out.println("tiempo de ejecucion en nanosegundos:"+(fin-ini));
 	}//benchmark
-
+	public static int[] postBenchmark(int[] nums, String prompt) {
+		System.out.println("======"+prompt+"======");
+		System.out.println("numeros desordenados: "+Arrays.toString(nums));
+		return nums.clone();
+	}
 	
 	static class Burbuja {
 		
 		public static void ordenacionBurbuja1(int nums[]) {
-			int[] numeros = nums.clone();
-			System.out.println("======ordenacionBurbuja1======");
-			System.out.println("numeros desordenados: "+Arrays.toString(numeros));
+			int numeros[]=postBenchmark(nums, "Burbuja1");
 			int comparaciones=0;
 			int intercambios=0;
 			
@@ -165,9 +167,7 @@ class MetodosOrdenamiento{
 			
 		}
 		public static void ordenacionBurbuja2(int nums[]) {
-			int[] numeros = nums.clone();
-			System.out.println("======ordenacionBurbuja2======");
-			System.out.println("numeros desordenados: "+Arrays.toString(numeros));
+			int numeros[]=postBenchmark(nums, "Burbuja2");
 			int comparaciones=0;
 			int intercambios=0;
 			
@@ -194,9 +194,7 @@ class MetodosOrdenamiento{
 			
 		}
 		public static void ordenacionBurbuja3(int nums[]) {
-			int[] numeros = nums.clone();
-			System.out.println("======ordenacionBurbuja3======");
-			System.out.println("numeros desordenados: "+Arrays.toString(numeros));
+			int numeros[]=postBenchmark(nums, "Burbuja3");
 			int comparaciones=0;
 			int intercambios=0;
 			
@@ -232,9 +230,7 @@ class MetodosOrdenamiento{
 	static class Insercion {
 		
 		public static void ordenacionInsercion(int nums[]) {
-			int[] numeros = nums.clone();
-			System.out.println("======ordenarInsercion======");
-			System.out.println("numeros desordenados: "+Arrays.toString(numeros));
+			int numeros[]=postBenchmark(nums, "Insercion");
 			int comparaciones=0;
 			int intercambios=0;
 			int aux;
@@ -277,8 +273,7 @@ class MetodosOrdenamiento{
 		}
 		
 		public static void ordenacionIntercalacion(int nums[]) {
-			int numeros[]=nums.clone();
-			System.out.println("======ordenarIntercalacion======");
+			int numeros[]=postBenchmark(nums, "Intercalacion");
 			int[] arregloA,arregloB;
 			
 			int comparaciones=0;
@@ -394,9 +389,7 @@ class MetodosOrdenamiento{
 		}
 		
 		public static void llamadaOrdenamientoMezclaDirecto(int nums[]) {
-			int numeros[]=nums.clone();
-			System.out.println("======ordenarMezclaDirecto======");
-			System.out.println("numeros desordenados: "+Arrays.toString(numeros));
+			int numeros[]=postBenchmark(nums, "MezclaDirecto");
 			
 			long ini = System.nanoTime();
 			ordenamientoMezclaDirecto(numeros);
@@ -416,9 +409,7 @@ class MetodosOrdenamiento{
 	static class Seleccion{
 		
 		public static void ordenacionSeleccion(int[] nums) {
-			int numeros[]=nums.clone();
-			System.out.println("======ordenarSeleccion======");
-			System.out.println("numeros desordenados: "+Arrays.toString(numeros));
+			int numeros[]=postBenchmark(nums, "Seleccion");
 			int comparaciones=0;
 			int intercambios=0;
 			
@@ -477,9 +468,7 @@ class MetodosOrdenamiento{
         }
         
         public static void llamadaQuicksort(int nums[]) {
-        	int numeros[]=nums.clone();
-        	System.out.println("======Quicksort======");
-        	System.out.println("numeros desordenados: "+Arrays.toString(numeros));
+        	int numeros[]=postBenchmark(nums, "Quicksort");
         	
         	long ini = System.nanoTime();
         	quicksort(numeros,0,numeros.length-1);
@@ -501,9 +490,7 @@ class MetodosOrdenamiento{
 	static class Shellsort{
 		
 		public static void shellsort(int[] nums) {
-			int numeros[]=nums.clone();
-        	System.out.println("======Quicksort======");
-        	System.out.println("numeros desordenados: "+Arrays.toString(numeros));
+			int numeros[]=postBenchmark(nums, "Shellsort");
         	
 			int intervalo, comparaciones=0,intercambios=0;
 			intervalo = numeros.length/2;
@@ -545,7 +532,7 @@ public class PruebaMetodosOrdenamiento{
 	
 	public static void main(String[] args) {
 	
-		int nums[]=GeneracionNumeros.generarNumerosAleatorios(10);
+		int nums[]=GeneracionNumeros.generarNumerosAleatorios(100);
 		System.out.println("numeros: "+Arrays.toString(nums));
 		
 		boolean salir=false,salir1=false,salir2=false;
