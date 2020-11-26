@@ -129,6 +129,7 @@ class MetodosOrdenamiento{
 		case "MezclaDirecto":MezclaDirecto.mostrarVector(numeros);break;
 		case "Seleccion":Seleccion.mostrarVector(numeros);break;
 		case "Quicksort":Quicksort.mostrarVector(numeros);break;
+		case "Shellsort":Shellsort.mostrarVector(numeros);break;
 		default:break;
 		}
 		System.out.println("cantidad de comparaciones: "+comparaciones);
@@ -497,6 +498,47 @@ class MetodosOrdenamiento{
     }//class Quicksort
 
 	
+	static class Shellsort{
+		
+		public static void shellsort(int[] nums) {
+			int numeros[]=nums.clone();
+        	System.out.println("======Quicksort======");
+        	System.out.println("numeros desordenados: "+Arrays.toString(numeros));
+        	
+			int intervalo, comparaciones=0,intercambios=0;
+			intervalo = numeros.length/2;
+			long ini = System.nanoTime();
+			while(intervalo>0) {
+				for(int i = intervalo; i<numeros.length; i++) {
+					int j=i-intervalo;
+					while(j>=0) {
+						int k=j+intervalo;
+						comparaciones+=1;
+						if(numeros[j] <= numeros[k]) {
+							j-=1;
+						}else {
+							int aux = numeros[j];
+							intercambios+=1;
+							numeros[j] = numeros[k];
+							numeros[k] = aux;
+							j-=intervalo;
+						}
+					}
+				}
+				intervalo=intervalo/2;
+			}
+			long fin = System.nanoTime();
+			impresionBenchmark(numeros, comparaciones, intercambios, ini, fin,"Shellsort");
+			
+		}
+		
+		public static void mostrarVector(int numeros[]) {
+			System.out.println(Arrays.toString(numeros));
+		}
+		
+	}//class Shellsort 
+	
+	
 }//class MetodosOrdenamiento
 
 public class PruebaMetodosOrdenamiento{
@@ -508,7 +550,7 @@ public class PruebaMetodosOrdenamiento{
 		
 		boolean salir=false,salir1=false,salir3=false;
 		String opcionespt1[]= {"Cambiar cantidad de numeros"};
-		String opcionespt2[]= {"Burbuja","Insercion","Seleccion","Quicksort","Intercalacion","Mezcla directo"};
+		String opcionespt2[]= {"Burbuja","Insercion","Seleccion","Quicksort","Shellsort","Intercalacion","Mezcla directo"};
 		String opciones1[]= {"X cantidad de elementos con X limite","X cantidad de elementos con Y limite","X cantidad de elementos con Y limite minimo y Z limite maximo"};
 		String opciones2[]= {"Burbuja1","Burbuja2","Burbuja3"};
 		
@@ -554,8 +596,9 @@ public class PruebaMetodosOrdenamiento{
 				case 3:MetodosOrdenamiento.Insercion.ordenacionInsercion(nums);break;
 				case 4:MetodosOrdenamiento.Seleccion.ordenacionSeleccion(nums);break;
 				case 5:MetodosOrdenamiento.Quicksort.llamadaQuicksort(nums);break;
-				case 6:MetodosOrdenamiento.Intercalacion.ordenacionIntercalacion(nums);break;
-				case 7:MetodosOrdenamiento.MezclaDirecto.llamadaOrdenamientoMezclaDirecto(nums);break;
+				case 6:MetodosOrdenamiento.Shellsort.shellsort(nums);break;
+				case 7:MetodosOrdenamiento.Intercalacion.ordenacionIntercalacion(nums);break;
+				case 8:MetodosOrdenamiento.MezclaDirecto.llamadaOrdenamientoMezclaDirecto(nums);break;
 				default:System.out.println("Opcion no valida");break;
 				}//switch
 			}//else
