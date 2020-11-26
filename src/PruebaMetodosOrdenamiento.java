@@ -548,7 +548,7 @@ public class PruebaMetodosOrdenamiento{
 		int nums[]=GeneracionNumeros.generarNumerosAleatorios(10);
 		System.out.println("numeros: "+Arrays.toString(nums));
 		
-		boolean salir=false,salir1=false,salir3=false;
+		boolean salir=false,salir1=false,salir2=false;
 		String opcionespt1[]= {"Cambiar cantidad de numeros"};
 		String opcionespt2[]= {"Burbuja","Insercion","Seleccion","Quicksort","Shellsort","Intercalacion","Mezcla directo"};
 		String opciones1[]= {"X cantidad de elementos con X limite","X cantidad de elementos con Y limite","X cantidad de elementos con Y limite minimo y Z limite maximo"};
@@ -565,33 +565,33 @@ public class PruebaMetodosOrdenamiento{
 				switch (opc) {
 				case 1:
 					do {
-						salir3=false;
+						salir1=false;
 						Menu.mostrarMenu(opciones1,"======Menu Numeros======");
 						
 						switch (Menu.validacionNatural()) {
 						case 1:nums=GeneracionNumeros.generarNumerosAleatorios(Menu.validacionNatural("X:"));break;
 						case 2:nums=GeneracionNumeros.generarNumerosAleatorios(Menu.validacionNatural("X:"),Menu.validacionEntero("Y:"));break;
 						case 3:nums=GeneracionNumeros.generarNumerosAleatorios(Menu.validacionNatural("X:"),Menu.validacionEntero("Y:"),Menu.validacionEntero("Z:"));break;
-						case 4:salir3=true;break;
+						case 4:salir1=true;break;
 						default:System.out.println("Opcion no valida");break;
 						}//switch
 						
-					} while (!salir3);
+					} while (!salir1);
 					break;
 				case 2:
 					do {
-						salir1=false;
+						salir2=false;
 						Menu.mostrarMenu("Mostrar por método de",opciones2,"======Menu Burbuja======");
 						
 						switch (Menu.validacionNatural()) {
 						case 1:MetodosOrdenamiento.Burbuja.ordenacionBurbuja1(nums);break;
 						case 2:MetodosOrdenamiento.Burbuja.ordenacionBurbuja2(nums);break;
 						case 3:MetodosOrdenamiento.Burbuja.ordenacionBurbuja3(nums);break;
-						case 4:salir1=true;break;
+						case 4:salir2=true;break;
 						default:System.out.println("Opcion no valida");break;
 						}//switch
 						
-					} while (!salir1);
+					} while (!salir2);
 					break;
 				case 3:MetodosOrdenamiento.Insercion.ordenacionInsercion(nums);break;
 				case 4:MetodosOrdenamiento.Seleccion.ordenacionSeleccion(nums);break;
