@@ -119,12 +119,12 @@ class MetodosOrdenamiento{
 	
 	
 	public static void impresionBenchmark(int [] numeros,int comparaciones,int intercambios,long ini,long fin) {
-		DecimalFormat decimalFormat = new DecimalFormat("###,###");
+		DecimalFormat df = new DecimalFormat("###,###");
 		System.out.print("numeros ordenados: ");
 		impresionNumeros(numeros);
-		System.out.println("cantidad de comparaciones: "+decimalFormat.format(comparaciones));
-		System.out.println("cantidad de intercambios: "+decimalFormat.format(intercambios));
-		System.out.println("tiempo de ejecucion en nanosegundos:"+decimalFormat.format(fin-ini));
+		System.out.println("cantidad de comparaciones: "+df.format(comparaciones));
+		System.out.println("cantidad de intercambios: "+df.format(intercambios));
+		System.out.println("tiempo de ejecucion en nanosegundos:"+df.format(fin-ini));
 	}//benchmark
 	public static int[] postBenchmark(int[] nums, String prompt) {
 		System.out.println("======"+prompt+"======");
