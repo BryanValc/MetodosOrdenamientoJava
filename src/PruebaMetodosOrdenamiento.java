@@ -140,11 +140,12 @@ class MetodosOrdenamiento{
 	public static int[] postBenchmark(int[] nums, String prompt) {
 		System.out.println("======"+prompt+"======");
 		
-		System.out.println("numeros desordenados: ");
+		System.out.print("numeros desordenados: ");
 		impresionNumeros(nums);
 		return nums.clone();
 	}
 	public static void impresionNumeros(int[] nums) {
+		System.out.println();
 		for (int i = 0; i < nums.length; i++) {
 			
 			if(i!=0 && i%((int)Math.sqrt(nums.length))==0) {
@@ -236,7 +237,7 @@ class MetodosOrdenamiento{
 		}
 		
 		public static void mostrarVector(int [] numeros) {
-			System.out.println(Arrays.toString(numeros));
+			impresionNumeros(numeros);
 		}
 	
 	}//class Burbuja
@@ -269,7 +270,7 @@ class MetodosOrdenamiento{
 		}
 		
 		public static void mostrarVector(int numeros[]) {
-			System.out.println(Arrays.toString(numeros));
+			impresionNumeros(numeros);
 		}
 	}//class Insercion
 
@@ -341,7 +342,7 @@ class MetodosOrdenamiento{
 		}
 		
 		public static void mostrarVector(int numeros[]) {
-			System.out.println(Arrays.toString(numeros));
+			impresionNumeros(numeros);
 		}
 		
 		
@@ -415,7 +416,7 @@ class MetodosOrdenamiento{
 		}
 
 		public static void mostrarVector(int numeros[]) {
-			System.out.println(Arrays.toString(numeros));
+			impresionNumeros(numeros);
 		}
 		
 	}
@@ -446,7 +447,7 @@ class MetodosOrdenamiento{
 		}
 		
 		public static void mostrarVector(int numeros[]) {
-			System.out.println(Arrays.toString(numeros));
+			impresionNumeros(numeros);
 		}
 	
 	}//class Seleccion
@@ -495,7 +496,7 @@ class MetodosOrdenamiento{
         }
         
         public static void mostrarVector(int numeros[]) {
-			System.out.println(Arrays.toString(numeros));
+        	impresionNumeros(numeros);
 		}
         
         
@@ -535,7 +536,7 @@ class MetodosOrdenamiento{
 		}
 		
 		public static void mostrarVector(int numeros[]) {
-			System.out.println(Arrays.toString(numeros));
+			impresionNumeros(numeros);
 		}
 		
 	}//class Shellsort 
@@ -585,7 +586,7 @@ class MetodosOrdenamiento{
 		}
 		
 		public static void mostrarVector(int numeros[]) {
-			System.out.println(Arrays.toString(numeros));
+			impresionNumeros(numeros);
 		}
 		
 	}//class Radix
