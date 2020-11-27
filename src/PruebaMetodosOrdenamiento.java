@@ -145,10 +145,12 @@ class MetodosOrdenamiento{
 				System.out.print(nums[i]+"	");
 			}
 		}else {
-			System.out.println("El arreglo es demasiado largo y el menu se puede bugear, solo se van a imprimir los primeros 900 numeros");
-			for (int i = 0; i < 900; i++) {
-				
-				if(i!=0 && i%30==0) {
+			System.out.println("El arreglo es demasiado largo y el menu se puede bugear, solo se van a imprimir 900 muestras");
+			int salto = (int)(nums.length/899);
+			int j = -1;
+			for (int i = 0; i < nums.length; i+=salto) {
+				j+=1;
+				if(i!=0 && j%30==0) {
 					System.out.println();
 				}else if(i==0) {
 					System.out.print("[");
