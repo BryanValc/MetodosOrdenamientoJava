@@ -9,7 +9,6 @@ class GeneracionNumeros{
 		for (int i = 0; i < ret.length; i++) {
 			ret[i]=(int)(Math.random()*cnt);
 		}
-		System.out.println("numeros: "+Arrays.toString(ret));
 	    return ret;
 	}
 	public static int[] generarNumerosAleatorios(int cnt,int lim){
@@ -17,7 +16,6 @@ class GeneracionNumeros{
 		for (int i = 0; i < ret.length; i++) {
 			ret[i]=(int)(Math.random()*lim);
 		}
-		System.out.println("numeros: "+Arrays.toString(ret));
 	    return ret;
 	}
 	public static int[] generarNumerosAleatorios(int cnt,int limMin,int limMax){
@@ -29,7 +27,6 @@ class GeneracionNumeros{
 		for (int i = 0; i < ret.length; i++) {
 			ret[i]=(int)((Math.random()*(limMax-limMin))+limMin);
 		}
-		System.out.println("numeros: "+Arrays.toString(ret));
 	    return ret;
 	}
 }//class GeneracionNumeros
@@ -120,19 +117,9 @@ class Menu{
 class MetodosOrdenamiento{
 	
 	
-	public static void impresionBenchmark(int [] numeros,int comparaciones,int intercambios,long ini,long fin,String clase) {
+	public static void impresionBenchmark(int [] numeros,int comparaciones,int intercambios,long ini,long fin) {
 		System.out.print("numeros ordenados: ");
-		switch (clase) {
-		case "Burbuja":Burbuja.mostrarVector(numeros);break;
-		case "Insercion":Insercion.mostrarVector(numeros);break;
-		case "Intercalacion":Intercalacion.mostrarVector(numeros);break;
-		case "MezclaDirecto":MezclaDirecto.mostrarVector(numeros);break;
-		case "Seleccion":Seleccion.mostrarVector(numeros);break;
-		case "Quicksort":Quicksort.mostrarVector(numeros);break;
-		case "Shellsort":Shellsort.mostrarVector(numeros);break;
-		case "Radix":Radix.mostrarVector(numeros);break;
-		default:break;
-		}
+		impresionNumeros(numeros);
 		System.out.println("cantidad de comparaciones: "+comparaciones);
 		System.out.println("cantidad de intercambios: "+intercambios);
 		System.out.println("tiempo de ejecucion en nanosegundos:"+(fin-ini));
@@ -146,14 +133,28 @@ class MetodosOrdenamiento{
 	}
 	public static void impresionNumeros(int[] nums) {
 		System.out.println();
-		for (int i = 0; i < nums.length; i++) {
-			
-			if(i!=0 && i%((int)Math.sqrt(nums.length))==0) {
-				System.out.println();
-			}else if(i==0) {
-				System.out.print("[");
+		
+		if (nums.length<=900) {
+			for (int i = 0; i < nums.length; i++) {
+				
+				if(i!=0 && i%((int)Math.sqrt(nums.length))==0) {
+					System.out.println();
+				}else if(i==0) {
+					System.out.print("[");
+				}
+				System.out.print(nums[i]+"	");
 			}
-			System.out.print(nums[i]+"	");
+		}else {
+			System.out.println("El arreglo es demasiado largo y el menu se puede bugear, solo se van a imprimir los primeros 900 numeros");
+			for (int i = 0; i < 900; i++) {
+				
+				if(i!=0 && i%30==0) {
+					System.out.println();
+				}else if(i==0) {
+					System.out.print("[");
+				}
+				System.out.print(nums[i]+"	");
+			}
 		}
 		System.out.println("]");
 	}
@@ -179,7 +180,7 @@ class MetodosOrdenamiento{
 			}
 			long fin = System.nanoTime();
 			
-			impresionBenchmark(numeros, comparaciones, intercambios, ini, fin,"Burbuja");
+			impresionBenchmark(numeros, comparaciones, intercambios, ini, fin);
 			
 		}
 		public static void ordenacionBurbuja2(int nums[]) {
@@ -206,7 +207,7 @@ class MetodosOrdenamiento{
 			}
 			long fin = System.nanoTime();
 			
-			impresionBenchmark(numeros, comparaciones, intercambios, ini, fin,"Burbuja");
+			impresionBenchmark(numeros, comparaciones, intercambios, ini, fin);
 			
 		}
 		public static void ordenacionBurbuja3(int nums[]) {
@@ -232,12 +233,8 @@ class MetodosOrdenamiento{
 			}while (i<numeros.length);
 			long fin = System.nanoTime();
 			
-			impresionBenchmark(numeros, comparaciones, intercambios, ini, fin,"Burbuja");
+			impresionBenchmark(numeros, comparaciones, intercambios, ini, fin);
 			
-		}
-		
-		public static void mostrarVector(int [] numeros) {
-			impresionNumeros(numeros);
 		}
 	
 	}//class Burbuja
@@ -265,13 +262,10 @@ class MetodosOrdenamiento{
 			}
 			long fin = System.nanoTime();
 			
-			impresionBenchmark(numeros, comparaciones, intercambios, ini, fin,"Insercion");
+			impresionBenchmark(numeros, comparaciones, intercambios, ini, fin);
 			
 		}
 		
-		public static void mostrarVector(int numeros[]) {
-			impresionNumeros(numeros);
-		}
 	}//class Insercion
 
 	
@@ -338,13 +332,8 @@ class MetodosOrdenamiento{
 			
 			long fin = System.nanoTime();
 			
-			impresionBenchmark(arregloC, comparaciones, intercambios, ini, fin,"Intercalacion");
+			impresionBenchmark(arregloC, comparaciones, intercambios, ini, fin);
 		}
-		
-		public static void mostrarVector(int numeros[]) {
-			impresionNumeros(numeros);
-		}
-		
 		
 	}
 	
@@ -411,14 +400,10 @@ class MetodosOrdenamiento{
 			ordenamientoMezclaDirecto(numeros);
 			long fin = System.nanoTime();
 			
-			impresionBenchmark(numeros, comparaciones, intercambios, ini, fin,"MezclaDirecto");
+			impresionBenchmark(numeros, comparaciones, intercambios, ini, fin);
 			comparaciones=intercambios=0;
 		}
 
-		public static void mostrarVector(int numeros[]) {
-			impresionNumeros(numeros);
-		}
-		
 	}
 	
 	
@@ -442,14 +427,10 @@ class MetodosOrdenamiento{
 				}
 			}
 			long fin = System.nanoTime();
-			impresionBenchmark(numeros, comparaciones, intercambios, ini, fin,"Seleccion");
+			impresionBenchmark(numeros, comparaciones, intercambios, ini, fin);
 			
 		}
 		
-		public static void mostrarVector(int numeros[]) {
-			impresionNumeros(numeros);
-		}
-	
 	}//class Seleccion
 	
 	
@@ -490,15 +471,11 @@ class MetodosOrdenamiento{
         	quicksort(numeros,0,numeros.length-1);
 			long fin = System.nanoTime();
         			
-			impresionBenchmark(numeros, comparaciones, intercambios, ini, fin,"Quicksort");
+			impresionBenchmark(numeros, comparaciones, intercambios, ini, fin);
 			comparaciones=intercambios=0;
         	
         }
-        
-        public static void mostrarVector(int numeros[]) {
-        	impresionNumeros(numeros);
-		}
-        
+    
         
     }//class Quicksort
 
@@ -531,12 +508,8 @@ class MetodosOrdenamiento{
 				intervalo=intervalo/2;
 			}
 			long fin = System.nanoTime();
-			impresionBenchmark(numeros, comparaciones, intercambios, ini, fin,"Shellsort");
+			impresionBenchmark(numeros, comparaciones, intercambios, ini, fin);
 			
-		}
-		
-		public static void mostrarVector(int numeros[]) {
-			impresionNumeros(numeros);
 		}
 		
 	}//class Shellsort 
@@ -582,11 +555,7 @@ class MetodosOrdenamiento{
 		          intercambios+=1;
 		       }//for
 		          long fin = System.nanoTime();
-					impresionBenchmark(numeros, 0, intercambios, ini, fin,"Radix");
-		}
-		
-		public static void mostrarVector(int numeros[]) {
-			impresionNumeros(numeros);
+					impresionBenchmark(numeros, 0, intercambios, ini, fin);
 		}
 		
 	}//class Radix
@@ -598,7 +567,8 @@ public class PruebaMetodosOrdenamiento{
 	
 	public static void main(String[] args) {
 	
-		int nums[]=GeneracionNumeros.generarNumerosAleatorios(100);
+		int nums[]=GeneracionNumeros.generarNumerosAleatorios(1000000);
+		MetodosOrdenamiento.impresionNumeros(nums);
 		
 		boolean salir=false,salir1=false,salir2=false;
 		String opcionespt1[]= {"Cambiar cantidad de numeros"};
