@@ -130,6 +130,7 @@ class MetodosOrdenamiento{
 		case "Seleccion":Seleccion.mostrarVector(numeros);break;
 		case "Quicksort":Quicksort.mostrarVector(numeros);break;
 		case "Shellsort":Shellsort.mostrarVector(numeros);break;
+		case "Radix":Radix.mostrarVector(numeros);break;
 		default:break;
 		}
 		System.out.println("cantidad de comparaciones: "+comparaciones);
@@ -138,8 +139,22 @@ class MetodosOrdenamiento{
 	}//benchmark
 	public static int[] postBenchmark(int[] nums, String prompt) {
 		System.out.println("======"+prompt+"======");
-		System.out.println("numeros desordenados: "+Arrays.toString(nums));
+		
+		System.out.println("numeros desordenados: ");
+		impresionNumeros(nums);
 		return nums.clone();
+	}
+	public static void impresionNumeros(int[] nums) {
+		for (int i = 0; i < nums.length; i++) {
+			
+			if(i!=0 && i%((int)Math.sqrt(nums.length))==0) {
+				System.out.println();
+			}else if(i==0) {
+				System.out.print("[");
+			}
+			System.out.print(nums[i]+"	");
+		}
+		System.out.println("]");
 	}
 	
 	static class Burbuja {
@@ -526,6 +541,56 @@ class MetodosOrdenamiento{
 	}//class Shellsort 
 	
 	
+	static class Radix{
+		
+		public static void radix(int[]nums) {
+			int numeros[]=postBenchmark(nums, "Radix");
+			int intercambios=0;
+			long ini = System.nanoTime();
+			if(numeros.length == 0)
+		          return;
+		          int[][] np = new int[numeros.length][2];
+		          int[] q = new int[0x100];
+		          int i,j,k,l,f = 0;
+		          for(k=0;k<4;k++) {
+		             for(i=0;i<(np.length-1);i++)
+		             np[i][1] = i+1;
+		             np[i][1] = -1;
+		             for(i=0;i<q.length;i++)
+		             q[i] = -1;
+		             for(f=i=0;i<numeros.length;i++) {
+		                j = ((0xFF<<(k<<3))&numeros[i])>>(k<<3);
+		                if(q[j] == -1)
+		                l = q[j] = f;
+		             else {
+		                l = q[j];
+		                while(np[l][1] != -1)
+		                l = np[l][1];
+		                np[l][1] = f;
+		                l = np[l][1];
+		                intercambios+=1;
+		             }
+		             f = np[f][1];
+		             np[l][0] = numeros[i];
+		             np[l][1] = -1;
+		             intercambios+=1;
+		          }
+		          for(l=q[i=j=0];i<0x100;i++)
+		          for(l=q[i];l!=-1;l=np[l][1])
+		        	  numeros[j++] = np[l][0];
+		          intercambios+=1;
+		       }//for
+		          long fin = System.nanoTime();
+					impresionBenchmark(numeros, 0, intercambios, ini, fin,"Radix");
+		}
+		
+		public static void mostrarVector(int numeros[]) {
+			System.out.println(Arrays.toString(numeros));
+		}
+		
+	}//class Radix
+	
+	
 }//class MetodosOrdenamiento
 
 public class PruebaMetodosOrdenamiento{
@@ -533,11 +598,10 @@ public class PruebaMetodosOrdenamiento{
 	public static void main(String[] args) {
 	
 		int nums[]=GeneracionNumeros.generarNumerosAleatorios(100);
-		System.out.println("numeros: "+Arrays.toString(nums));
 		
 		boolean salir=false,salir1=false,salir2=false;
 		String opcionespt1[]= {"Cambiar cantidad de numeros"};
-		String opcionespt2[]= {"Burbuja","Insercion","Seleccion","Quicksort","Shellsort","Intercalacion","Mezcla directo"};
+		String opcionespt2[]= {"Burbuja","Insercion","Seleccion","Quicksort","Shellsort","Radix","Intercalacion","Mezcla directo"};
 		String opciones1[]= {"X cantidad de elementos con X limite","X cantidad de elementos con Y limite","X cantidad de elementos con Y limite minimo y Z limite maximo"};
 		String opciones2[]= {"Burbuja1","Burbuja2","Burbuja3"};
 		
@@ -584,8 +648,9 @@ public class PruebaMetodosOrdenamiento{
 				case 4:MetodosOrdenamiento.Seleccion.ordenacionSeleccion(nums);break;
 				case 5:MetodosOrdenamiento.Quicksort.llamadaQuicksort(nums);break;
 				case 6:MetodosOrdenamiento.Shellsort.shellsort(nums);break;
-				case 7:MetodosOrdenamiento.Intercalacion.ordenacionIntercalacion(nums);break;
-				case 8:MetodosOrdenamiento.MezclaDirecto.llamadaOrdenamientoMezclaDirecto(nums);break;
+				case 7:MetodosOrdenamiento.Radix.radix(nums);break;
+				case 8:MetodosOrdenamiento.Intercalacion.ordenacionIntercalacion(nums);break;
+				case 9:MetodosOrdenamiento.MezclaDirecto.llamadaOrdenamientoMezclaDirecto(nums);break;
 				default:System.out.println("Opcion no valida");break;
 				}//switch
 			}//else
