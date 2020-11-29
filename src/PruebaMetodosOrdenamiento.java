@@ -572,6 +572,7 @@ public class PruebaMetodosOrdenamiento{
 	public static void main(String[] args) {
 	
 		int nums[]=GeneracionNumeros.generarNumerosAleatorios(1000000);
+		System.out.println("Numeros: ");
 		MetodosOrdenamiento.impresionNumeros(nums);
 		
 		boolean salir=false,salir1=false,salir2=false;
