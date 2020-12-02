@@ -34,6 +34,7 @@ class GeneracionNumeros{
 
 class Menu{
 	static Scanner input = new Scanner(System.in);
+	
 	public static int validacionNatural() {
 		int ret = 0;
 		boolean err = false;
@@ -76,6 +77,7 @@ class Menu{
 		System.out.println(prompt);
 		return validacionEntero();
 	}
+	
 	public static void mostrarMenu(String[] opciones) {//Imprime opciones
 		System.out.println();
 		for (int i = 0; i < opciones.length; i++) {
@@ -124,17 +126,24 @@ class MetodosOrdenamiento{
 		impresionNumeros(numeros);
 		System.out.println("cantidad de comparaciones: "+df.format(comparaciones));
 		System.out.println("cantidad de intercambios: "+df.format(intercambios));
-		System.out.println("tiempo de ejecucion en nanosegundos:"+df.format(fin-ini));
+		System.out.println("tiempo de ejecución en nanosegundos:"+df.format(fin-ini));
 	}//benchmark
 	public static int[] postBenchmark(int[] nums, String prompt) {
 		System.out.println("======"+prompt+"======");
 		
-		System.out.print("numeros desordenados: ");
+		System.out.print("Números desordenados: ");
 		impresionNumeros(nums);
 		return nums.clone();
 	}
 	public static void impresionNumeros(int[] nums) {
 		System.out.println();
+		
+		int max = nums[0];
+	    for (int a : nums) {
+	        if (a > max)
+	            max = a;
+	    }
+	    int maxS= Integer.toString(max).length();
 		
 		if (nums.length<=900) {
 			for (int i = 0; i < nums.length; i++) {
@@ -144,20 +153,38 @@ class MetodosOrdenamiento{
 				}else if(i==0) {
 					System.out.print("[");
 				}
-				System.out.print(nums[i]+"	");
+				System.out.print(nums[i]);
+				for (int k = 0; k < (maxS-Integer.toString(nums[i]).length()); k++) {
+					System.out.print(' ');
+				}
+				if(i==0) {
+					System.out.print(' ');
+				}else {
+					System.out.print("  ");
+				}
+				
 			}
 		}else {
 			System.out.println("El arreglo es demasiado largo y el menu se puede bugear, solo se van a imprimir 900 muestras");
-			int salto = (int)(nums.length/899);
+			int salto = (int)(nums.length/900);
 			int j = -1;
-			for (int i = 0; i < nums.length; i+=salto) {
+			for (int i = (int)(salto/2); i < nums.length; i+=salto) {
 				j+=1;
 				if(i!=0 && j%30==0) {
 					System.out.println();
-				}else if(i==0) {
+				}else if(i==salto) {
 					System.out.print("[");
 				}
-				System.out.print(nums[i]+"	");
+				System.out.print(nums[i]);
+				for (int k = 0; k < (maxS-Integer.toString(nums[i]).length()); k++) {
+					System.out.print(' ');
+				}
+				if(i==0) {
+					System.out.print(' ');
+				}else {
+					System.out.print("  ");
+				}
+				
 			}
 		}
 		System.out.println("]");
@@ -565,26 +592,174 @@ class MetodosOrdenamiento{
 	}//class Radix
 	
 	
+	static class MezclaNatural {
+		static int comparaciones=0;
+		static int intercambios=0;
+		
+		public static int[] mezclaDirecta (int[] vector) {
+			int i,j,k;
+			if(vector.length>1) {
+				int nElementosIzquierda = vector.length/2;
+				int nElementosDerecha = vector.length - nElementosIzquierda;
+				int vectorI[] = new int [nElementosIzquierda];
+				int vectorD[] = new int [nElementosDerecha];
+				
+				for (i = 0; i < nElementosIzquierda; i++) {
+					intercambios+=1;
+					vectorI[i]=vector[i];
+				}
+				
+				for (i = nElementosIzquierda; i < nElementosIzquierda+nElementosDerecha; i++){
+					intercambios+=1;
+					vectorD[i-nElementosIzquierda] = vector[i];
+				}
+				vectorI = mezclaDirecta(vectorI);
+				vectorD = mezclaDirecta(vectorD);
+				i=0;
+				j=0;
+				k=0;
+				while(vectorI.length!=j && vectorD.length!=k) {
+					intercambios+=1;
+					comparaciones+=1;
+					if(vectorI[j]<vectorD[k]) {
+						vector[i]=vectorI[j];
+						i++;
+						j++;
+					}else {
+						vector[i]=vectorD[k];
+						i++;
+						k++;
+					}//Else
+				}//While	
+				while(vectorI.length!=j) {
+					intercambios+=1;
+					vector[i] = vectorI[j];
+					i++;
+					j++;
+				}
+				while(vectorD.length!=k) {
+					intercambios+=1;
+					vector[i] = vectorD[k];
+					i++;
+					k++;
+				}	
+			}
+			return vector;
+		}
+		//MezclaDirecta2
+		public static void mezclaDirecta2 (int[] vector) {
+			int i,j,k;
+			if(vector.length>1) {
+				int nElementosIzquierda = vector.length/2;
+				int nElementosDerecha = vector.length - nElementosIzquierda;
+				int vectorI[] = new int [nElementosIzquierda];
+				int vectorD[] = new int [nElementosDerecha];
+				
+				for (i = 0; i < nElementosIzquierda; i++) {
+					intercambios+=1;
+					vectorI[i]=vector[i];
+				}
+				
+				for (i = nElementosIzquierda; i < nElementosIzquierda+nElementosDerecha; i++){
+					intercambios+=1;
+					vectorD[i-nElementosIzquierda] = vector[i];
+				}
+				vectorI = mezclaDirecta(vectorI);
+				vectorD = mezclaDirecta(vectorD);
+				i=0;
+				j=0;
+				k=0;
+				while(vectorI.length!=j && vectorD.length!=k) {
+					comparaciones+=1;
+					if(vectorI[j]<vectorD[k]) {
+						vector[i]=vectorI[j];
+						i++;
+						j++;
+					}else {
+						vector[i]=vectorD[k];
+						i++;
+						k++;
+					}//Else
+				}//While
+					
+				while(vectorI.length!=j) {
+					intercambios+=1;
+					vector[i] = vectorI[j];
+					i++;
+					j++;
+				}
+				while(vectorD.length!=k) {
+					intercambios+=1;
+					vector[i] = vectorD[k];
+					i++;
+					k++;
+				}	
+			}
+		}
+		
+		public static void mezclaNatural(int[] nums) {
+			int numeros[]= postBenchmark(nums,"Mezcla natural");
+			
+			int izquierda =0;
+			int izq =0;
+			int derecha = numeros.length-1;//Sin el error de nullPointerExepcion
+			int der = derecha;
+			boolean ordenado = false;
+			
+			long ini = System.nanoTime();
+			do {
+				ordenado = true;
+				izquierda = 0;
+				while(izquierda<derecha) {
+					izq =izquierda;
+					comparaciones+=1;
+					while(izq < derecha && numeros[izq]<=numeros[izq+1]) {
+						izq++;
+					}
+					der = izq +1;
+					comparaciones+=1;
+					while(der==derecha-1 || der<derecha && numeros[der]<=numeros[der+1]) {
+						der++;
+					}
+					if(der<=derecha) {
+						mezclaDirecta2(numeros);
+						
+						ordenado = false;
+					}
+					izquierda=izq;
+					
+				}
+			}while(!ordenado);
+			long fin = System.nanoTime();
+			impresionBenchmark(numeros, comparaciones, intercambios, ini, fin);
+			comparaciones=intercambios=0;
+			
+			
+		
+		}
+		
+	}//Mezcla natural
+	
+	
 }//class MetodosOrdenamiento
 
 public class PruebaMetodosOrdenamiento{
 	
 	public static void main(String[] args) {
 	
-		int nums[]=GeneracionNumeros.generarNumerosAleatorios(1000000);
+		int nums[]=GeneracionNumeros.generarNumerosAleatorios(900,900);
 		System.out.println("Numeros: ");
 		MetodosOrdenamiento.impresionNumeros(nums);
 		
 		boolean salir=false,salir1=false,salir2=false;
-		String opcionespt1[]= {"Cambiar cantidad de numeros"};
-		String opcionespt2[]= {"Burbuja","Insercion","Seleccion","Quicksort","Shellsort","Radix","Intercalacion","Mezcla directo"};
-		String opciones1[]= {"X cantidad de elementos con X limite","X cantidad de elementos con Y limite","X cantidad de elementos con Y limite minimo y Z limite maximo"};
+		String opcionespt1[]= {"Cambiar cantidad de números"};
+		String opcionespt2[]= {"Burbuja","Inserción","Selección","Quicksort","Shellsort","Radix","Intercalación","Mezcla directo","Mezcla natural"};
+		String opciones1[]= {"X cantidad de elementos con X límite","X cantidad de elementos con Y límite","X cantidad de elementos con Y límite mínimo y Z límite máximo"};
 		String opciones2[]= {"Burbuja1","Burbuja2","Burbuja3"};
-		
 
 		do {
 			
-			Menu.mostrarMenu(opcionespt1,"Mostrar por metodo de",opcionespt2,"======Menu Principal======");
+			Menu.mostrarMenu(opcionespt1,"Mostrar por método de",opcionespt2,"======Menú Principal======");
 			byte opc= (byte) Menu.validacionNatural();
 			if (opc==(opcionespt1.length+opcionespt2.length+1)) {
 				salir=true;
@@ -593,14 +768,14 @@ public class PruebaMetodosOrdenamiento{
 				case 1:
 					do {
 						salir1=false;
-						Menu.mostrarMenu(opciones1,"======Menu Numeros======");
+						Menu.mostrarMenu(opciones1,"======Menú Numeros======");
 						
 						switch (Menu.validacionNatural()) {
 						case 1:nums=GeneracionNumeros.generarNumerosAleatorios(Menu.validacionNatural("X:"));break;
 						case 2:nums=GeneracionNumeros.generarNumerosAleatorios(Menu.validacionNatural("X:"),Menu.validacionEntero("Y:"));break;
 						case 3:nums=GeneracionNumeros.generarNumerosAleatorios(Menu.validacionNatural("X:"),Menu.validacionEntero("Y:"),Menu.validacionEntero("Z:"));break;
 						case 4:salir1=true;break;
-						default:System.out.println("Opcion no valida");break;
+						default:System.out.println("Opción no válida");break;
 						}//switch
 						
 					} while (!salir1);
@@ -608,14 +783,14 @@ public class PruebaMetodosOrdenamiento{
 				case 2:
 					do {
 						salir2=false;
-						Menu.mostrarMenu("Mostrar por método de",opciones2,"======Menu Burbuja======");
+						Menu.mostrarMenu("Mostrar por método de",opciones2,"======Menú Burbuja======");
 						
 						switch (Menu.validacionNatural()) {
 						case 1:MetodosOrdenamiento.Burbuja.ordenacionBurbuja1(nums);break;
 						case 2:MetodosOrdenamiento.Burbuja.ordenacionBurbuja2(nums);break;
 						case 3:MetodosOrdenamiento.Burbuja.ordenacionBurbuja3(nums);break;
 						case 4:salir2=true;break;
-						default:System.out.println("Opcion no valida");break;
+						default:System.out.println("Opción no válida");break;
 						}//switch
 						
 					} while (!salir2);
@@ -627,7 +802,8 @@ public class PruebaMetodosOrdenamiento{
 				case 7:MetodosOrdenamiento.Radix.radix(nums);break;
 				case 8:MetodosOrdenamiento.Intercalacion.ordenacionIntercalacion(nums);break;
 				case 9:MetodosOrdenamiento.MezclaDirecto.llamadaOrdenamientoMezclaDirecto(nums);break;
-				default:System.out.println("Opcion no valida");break;
+				case 10:MetodosOrdenamiento.MezclaNatural.mezclaNatural(nums);
+				default:System.out.println("Opción no válida");break;
 				}//switch
 			}//else
 		} while (!salir);
